@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['All', '3D Animation', 'Motion Graphics', 'VFX', 'Video Editing', 'Branding'];
+const categories = ['3D Animation', 'Motion Graphics', 'VFX', 'Video Editing', 'Branding'];
 
 const projects = [
   {
     id: 1,
     title: 'Cosmic Voyage',
     category: '3D Animation',
-    thumbnail: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766167814/Screenshot_2025-12-19_234001_l7d1gl.png',
+    videoUrl: 'https://www.youtube.com/embed/M2cESo0s81w?feature=share',
     description: 'A stunning 3D animation exploring the depths of space with cinematic camera movements.',
     tools: ['Cinema 4D', 'After Effects', 'Octane Render'],
   },
@@ -19,8 +19,8 @@ const projects = [
     id: 2,
     title: 'Brand Identity Motion',
     category: 'Motion Graphics',
-    thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766858278/metaloop_graphics_3_-_Copy_-_Trim_-_frame_at_0m2s_kxftqe.jpg',
+    videoUrl: 'https://youtube.com/embed/s7zX_gLfKTw?feature=share',
     description: 'Dynamic logo animation and brand identity motion system for a tech startup.',
     tools: ['After Effects', 'Illustrator'],
   },
@@ -81,12 +81,10 @@ const projects = [
 ];
 
 const PortfolioSection = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('3D Animation');
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
-  const filteredProjects = activeCategory === 'All'
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+  const filteredProjects = projects.filter((p) => p.category === activeCategory);
 
   return (
     <section id="work" className="py-20 md:py-32 relative" aria-labelledby="work-heading">
@@ -209,34 +207,34 @@ const PortfolioSection = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full max-w-4xl bg-card rounded-xl overflow-hidden border border-border"
+              className="relative w-[90%] max-w-sm sm:max-w-xl max-h-[85vh] bg-card rounded-xl overflow-hidden border border-border flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-4 right-4 z-10"
+                className="absolute top-4 right-4 z-10 bg-background/80 hover:bg-background"
                 onClick={() => setSelectedProject(null)}
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
               </Button>
 
-              <div className="grid md:grid-cols-2">
+              <div className="flex flex-col overflow-y-auto">
                 {/* Video side */}
-                <div className="aspect-video md:aspect-auto bg-muted">
+                <div className="relative aspect-video bg-muted">
                   <iframe
                     src={selectedProject.videoUrl}
                     title={selectedProject.title}
-                    className="w-full h-full"
+                    className="absolute inset-0 w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
                 </div>
 
                 {/* Info side */}
-                <div className="p-6 md:p-8 flex flex-col">
+                <div className="p-6 flex flex-col">
                   <span className="text-primary text-xs font-medium uppercase tracking-wider mb-2">
                     {selectedProject.category}
                   </span>

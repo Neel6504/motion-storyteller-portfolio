@@ -24,18 +24,24 @@ const ParticleBackground = () => {
       vy: number;
       size: number;
       opacity: number;
+      hue: number;
+      rotation: number;
+      rotationSpeed: number;
     }> = [];
 
-    const particleCount = 50;
+    const particleCount = 80;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 3 + 1,
+        opacity: Math.random() * 0.4 + 0.2,
+        hue: Math.random() * 20,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.02,
       });
     }
 
@@ -45,30 +51,57 @@ const ParticleBackground = () => {
       particles.forEach((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
+        particle.rotation += particle.rotationSpeed;
 
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(225, 6, 0, ${particle.opacity})`;
-        ctx.fill();
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate(particle.rotation);
+        
+        // Draw abstract shapes
+        if (Math.random() > 0.5) {
+          // Triangles
+          ctx.beginPath();
+          ctx.moveTo(0, -particle.size);
+          ctx.lineTo(particle.size, particle.size);
+          ctx.lineTo(-particle.size, particle.size);
+          ctx.closePath();
+          ctx.fillStyle = `hsla(${particle.hue}, 98%, 45%, ${particle.opacity})`;
+          ctx.fill();
+        } else {
+          // Circles with gradient
+          const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, particle.size);
+          gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 55%, ${particle.opacity})`);
+          gradient.addColorStop(1, `hsla(${particle.hue}, 98%, 35%, 0)`);
+          ctx.beginPath();
+          ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+        }
+        
+        ctx.restore();
       });
 
-      // Draw connecting lines
+      // Draw connecting lines with gradient
       particles.forEach((particle, i) => {
         particles.slice(i + 1).forEach((other) => {
           const dx = particle.x - other.x;
           const dy = particle.y - other.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          if (distance < 200) {
+            const gradient = ctx.createLinearGradient(particle.x, particle.y, other.x, other.y);
+            gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
+            gradient.addColorStop(1, `hsla(${other.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = `rgba(225, 6, 0, ${0.05 * (1 - distance / 150)})`;
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         });

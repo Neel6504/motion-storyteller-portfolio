@@ -1,6 +1,7 @@
 import ParticleBackground from '@/components/ParticleBackground';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
+import CompaniesMarquee from '@/components/CompaniesMarquee';
 import PortfolioSection from '@/components/PortfolioSection';
 import ToolsMarquee from '@/components/ToolsMarquee';
 import AboutSection from '@/components/AboutSection';
@@ -14,6 +15,7 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <CompaniesMarquee />
         <PortfolioSection />
         <ToolsMarquee />
         <AboutSection />
