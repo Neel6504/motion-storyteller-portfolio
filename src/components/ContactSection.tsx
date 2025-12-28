@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
+import emailjs from '@emailjs/browser';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -18,8 +19,10 @@ const socials = [
   { icon: Instagram, href: 'https://www.instagram.com/_neelll._/', label: 'Instagram' },
 ];
 
-// API endpoint - update this when you deploy
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -53,31 +56,30 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      // Send form data to server
-      const response = await fetch(`${API_URL}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: 'work.neellathiya@gmail.com',
         },
-        body: JSON.stringify(formData),
+        EMAILJS_PUBLIC_KEY
+      );
+
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        toast({
-          title: "Message sent successfully!",
-          description: "Thanks for reaching out. I'll get back to you soon.",
-        });
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        throw new Error(data.error || 'Failed to send message');
-      }
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error sending email:', error);
       toast({
         title: "Failed to send message",
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description: "Please try again or contact me directly via email.",
         variant: "destructive",
       });
     } finally {
