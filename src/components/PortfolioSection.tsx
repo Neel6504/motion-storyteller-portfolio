@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics', 'VFX', 'Video Editing', 'Branding'];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Video Editing', 'Branding'];
 
 const projects = [
   {
@@ -27,9 +27,9 @@ const projects = [
   {
     id: 3,
     title: 'Particle Symphony',
-    category: 'VFX',
-    thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    category: 'Motion Graphics',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860017/diamond_cycle_-_Trim_-_frame_at_0m8s_cl0w99.jpg',
+    videoUrl: 'https://youtube.com/embed/3oflYDt-0NQ?feature=share',
     description: 'Abstract particle simulation synchronized with orchestral music.',
     tools: ['Houdini', 'After Effects', 'Nuke'],
   },
@@ -37,44 +37,44 @@ const projects = [
     id: 4,
     title: 'Product Reveal',
     category: '3D Animation',
-    thumbnail: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860128/3d_diamond_-_frame_at_0m1s_zhhmba.jpg',
+    videoUrl: 'hhttps://youtube.com/embed/hLredCyMk_8?feature=share',
     description: 'High-end product visualization with dramatic lighting and camera work.',
     tools: ['Blender', 'Substance Painter', 'After Effects'],
   },
   {
     id: 5,
     title: 'Documentary Edit',
-    category: 'Video Editing',
-    thumbnail: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    category: 'Logo Reveal',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860493/event_reveal_-_frame_at_0m3s_jppxhk.jpg',
+    videoUrl: 'https://youtube.com/embed/pABpwfMbo5c?feature=share',
     description: 'Award-winning documentary with compelling storytelling and pacing.',
     tools: ['Premiere Pro', 'DaVinci Resolve', 'After Effects'],
   },
   {
     id: 6,
     title: 'Tech Startup Promo',
-    category: 'Motion Graphics',
-    thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    category: 'Logo Reveal',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860729/Logo_Intro_-_frame_at_0m1s_z3cciq.jpg',
+    videoUrl: 'https://www.youtube.com/embed/7qbdWk6i-mY',
     description: 'Energetic promotional video combining live action with motion graphics.',
     tools: ['After Effects', 'Premiere Pro', 'Photoshop'],
   },
   {
     id: 7,
     title: 'Visual Effects Reel',
-    category: 'VFX',
-    thumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    category: 'Logo Reveal',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860926/logo_reveal_-_frame_at_0m0s_h7rfa2.jpg',
+    videoUrl: 'https://www.youtube.com/embed/Ed3sG7-Z-bs',
     description: 'Compilation of VFX work including compositing, rotoscoping, and CGI integration.',
     tools: ['Nuke', 'After Effects', 'Mocha Pro'],
   },
   {
     id: 8,
     title: 'Brand Guidelines Video',
-    category: 'Branding',
-    thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    category: 'Meta Ads',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766898813/Meta_Ad_-_frame_at_0m4s_pc9gbn.jpg',
+    videoUrl: 'https://www.youtube.com/embed/28GsBph5Fuw',
     description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
     tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
   },

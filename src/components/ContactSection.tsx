@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Send, Mail, MapPin, Linkedin, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,10 +14,12 @@ const contactSchema = z.object({
 });
 
 const socials = [
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/neel-lathiya-0218a9274/', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/_neelll._/', label: 'Instagram' },
 ];
+
+// API endpoint - update this when you deploy
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -50,16 +52,37 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Send form data to server
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
+      const data = await response.json();
 
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+      if (response.ok && data.success) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Failed to send message",
+        description: error instanceof Error ? error.message : "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -180,8 +203,8 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="font-medium text-foreground mb-1">Email</p>
-                  <a href="mailto:hello@neellathiya.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    hello@neellathiya.com
+                  <a href="mailto:work.neellathiya@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    work.neellathiya@gmail.com
                   </a>
                 </div>
               </div>
@@ -191,7 +214,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="font-medium text-foreground mb-1">Location</p>
-                  <p className="text-muted-foreground">Available Worldwide</p>
+                  <p className="text-muted-foreground">Surat, Gujarat, India</p>
                 </div>
               </div>
             </div>

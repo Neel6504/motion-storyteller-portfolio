@@ -1,12 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, Briefcase, GraduationCap } from 'lucide-react';
-
-const certifications = [
-  { title: 'Advanced Motion Graphics', issuer: 'School of Motion', year: '2023' },
-  { title: 'VFX Compositing', issuer: 'FXPHD', year: '2022' },
-  { title: '3D Modeling & Animation', issuer: 'Gnomon Workshop', year: '2022' },
-  { title: 'Color Grading Master', issuer: 'MixingLight', year: '2021' },
-];
+import { Briefcase, GraduationCap } from 'lucide-react';
 
 const AboutSection = () => {
   return (
@@ -15,8 +8,8 @@ const AboutSection = () => {
       <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
 
       <div className="container mx-auto px-4 md:px-6 relative">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: Content */}
+        <div className="max-w-4xl mx-auto">
+          {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -47,11 +40,10 @@ const AboutSection = () => {
             </div>
 
             {/* Quick stats */}
-            <div className="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-border/50">
+            <div className="grid grid-cols-2 gap-6 mt-8 pt-8 border-t border-border/50 max-w-md mx-auto">
               {[
                 { icon: Briefcase, label: 'Projects Completed', value: '150+' },
                 { icon: GraduationCap, label: 'Years Experience', value: '3+' },
-                { icon: Award, label: 'Certifications', value: '4' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <stat.icon className="w-5 h-5 text-primary mx-auto mb-2" />
@@ -59,41 +51,6 @@ const AboutSection = () => {
                   <p className="text-muted-foreground text-xs">{stat.label}</p>
                 </div>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Right: Certifications */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="bg-card border border-border rounded-xl p-6 md:p-8">
-              <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
-                <Award className="w-5 h-5 text-primary" />
-                Certifications
-              </h3>
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <motion.div
-                    key={cert.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-primary font-display font-bold text-sm">{cert.year.slice(2)}</span>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-foreground">{cert.title}</h4>
-                      <p className="text-muted-foreground text-sm">{cert.issuer}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
             </div>
           </motion.div>
         </div>

@@ -8,7 +8,9 @@ const companies = [
   { name: 'Flipkart', logo: 'GO' },
   { name: 'Meta Ads', logo: 'AZ' },
   { name: 'Yuzi', logo: 'MS' },
+  { name: 'Dizinfinity', logo: 'MS' },
 ];
+
 
 const CompaniesMarquee = () => {
   return (

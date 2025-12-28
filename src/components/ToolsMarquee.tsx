@@ -102,7 +102,7 @@ const ToolsMarquee = () => {
                   {/* Logo display */}
                   <div className="flex items-center justify-center mb-6">
                     <div className="relative">
-                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.color} group-hover:bg-white flex items-center justify-center transition-all duration-500 border-2 border-border/50 group-hover:border-transparent group-hover:scale-110 p-3`}>
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.name === 'CapCut' ? 'bg-white' : tool.color} ${tool.name === 'CapCut' ? 'group-hover:bg-white' : 'group-hover:bg-white'} flex items-center justify-center transition-all duration-500 border-2 border-border/50 group-hover:border-transparent group-hover:scale-110 p-3`}>
                         <img 
                           src={tool.logo} 
                           alt={`${tool.name} logo`}
