@@ -1,9 +1,167 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, ExternalLink, X } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival' ];
+
+const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { stiffness: 300, damping: 30 });
+  const translateZ = useSpring(useTransform(mouseX, [-0.5, 0.5], [-50, 50]), { stiffness: 300, damping: 30 });
+
+  // Parallax layers at different depths
+  const parallaxLayer1X = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), { stiffness: 400, damping: 30 });
+  const parallaxLayer1Y = useSpring(useTransform(mouseY, [-0.5, 0.5], [-20, 20]), { stiffness: 400, damping: 30 });
+  
+  const parallaxLayer2X = useSpring(useTransform(mouseX, [-0.5, 0.5], [-40, 40]), { stiffness: 400, damping: 30 });
+  const parallaxLayer2Y = useSpring(useTransform(mouseY, [-0.5, 0.5], [-40, 40]), { stiffness: 400, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setIsHovered(false);
+  };
+
+  return (
+    <motion.div
+      style={{ perspective: 1500 }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      className="p-1"
+    >
+      <motion.button
+        style={{
+          rotateX,
+          rotateY,
+          translateZ,
+          transformStyle: 'preserve-3d',
+        }}
+        onClick={onClick}
+        role="tab"
+        aria-selected={isActive}
+        animate={{
+          scale: isHovered ? 1.08 : 1,
+          boxShadow: isHovered 
+            ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(239, 68, 68, 0.3)'
+            : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className={`relative text-xs md:text-sm px-4 py-2 rounded-md font-medium overflow-hidden ${
+          isActive
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-card border border-border hover:border-primary/50'
+        }`}
+        whileTap={{ scale: 0.95 }}
+      >
+        {/* Gradient overlay */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent pointer-events-none"
+          animate={{ opacity: isHovered && !isActive ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+
+        {/* Spotlight effect */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.2) 0%, transparent 50%)`,
+          }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+        />
+
+        {/* Text with parallax */}
+        <motion.span 
+          className="relative z-10"
+          style={{
+            translateZ: 30,
+            x: parallaxLayer1X,
+            y: parallaxLayer1Y,
+          }}
+        >
+          {category}
+        </motion.span>
+
+        {/* Active indicator sparkle */}
+        {isActive && (
+          <motion.div
+            className="absolute -top-1 -right-1"
+            style={{
+              translateZ: 60,
+              x: parallaxLayer2X,
+              y: parallaxLayer2Y,
+            }}
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <Sparkles className="w-3 h-3 text-primary-foreground" />
+          </motion.div>
+        )}
+
+        {/* Burst particles on hover */}
+        {isHovered && [...Array(8)].map((_, i) => {
+          const angle = (i * 45) * (Math.PI / 180);
+          const distance = 30 + Math.random() * 15;
+          
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-primary"
+              style={{
+                width: 2,
+                height: 2,
+                left: '50%',
+                top: '50%',
+                pointerEvents: 'none',
+                translateZ: 80,
+              }}
+              initial={{
+                scale: 0,
+                x: 0,
+                y: 0,
+                opacity: 1,
+              }}
+              animate={{
+                x: distance * Math.cos(angle),
+                y: distance * Math.sin(angle),
+                scale: [0, 1, 0],
+                opacity: [1, 0.5, 0],
+              }}
+              transition={{
+                duration: 0.8,
+                ease: "easeOut",
+                repeat: Infinity,
+                repeatDelay: 0.3,
+              }}
+            />
+          );
+        })}
+
+        {/* Corner accent */}
+        <motion.div
+          className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-primary/20 to-transparent rounded-md pointer-events-none"
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.button>
+    </motion.div>
+  );
+};
 
 const projects = [
   {
@@ -217,17 +375,12 @@ const PortfolioSection = () => {
           aria-label="Filter projects by category"
         >
           {categories.map((category) => (
-            <Button
+            <CategoryButton
               key={category}
-              variant={activeCategory === category ? 'default' : 'outline'}
-              size="sm"
+              category={category}
+              isActive={activeCategory === category}
               onClick={() => setActiveCategory(category)}
-              role="tab"
-              aria-selected={activeCategory === category}
-              className="text-xs md:text-sm"
-            >
-              {category}
-            </Button>
+            />
           ))}
         </motion.div>
 

@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import FilmReel from './FilmReel';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
+import { useState } from 'react';
 
 const HeroSection = () => {
+  const [isNameHovered, setIsNameHovered] = useState(false);
   const textReveal = {
     hidden: { opacity: 0, y: 60 },
     visible: (i: number) => ({
@@ -59,7 +61,63 @@ const HeroSection = () => {
               variants={textReveal}
               className="text-muted-foreground text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0"
             >
-              Hi, I'm <span className="text-foreground font-medium">Neel Lathiya</span>. 
+              Hi, I'm{' '}
+              <motion.span 
+                className="font-medium cursor-pointer relative inline-block"
+                onMouseEnter={() => setIsNameHovered(true)}
+                onMouseLeave={() => setIsNameHovered(false)}
+                animate={{
+                  scale: isNameHovered ? 1.1 : 1,
+                  color: isNameHovered ? 'rgb(239, 68, 68)' : 'rgb(255, 255, 255)',
+                  textShadow: isNameHovered 
+                    ? '0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.5), 0 0 60px rgba(239, 68, 68, 0.3)' 
+                    : '0 0 0px rgba(0, 0, 0, 0)',
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                Neel Lathiya
+                
+                {/* Burst particles on hover */}
+                {isNameHovered && [...Array(25)].map((_, i) => {
+                  const angle = (Math.random() * 360) * (Math.PI / 180);
+                  const distance = 150 + Math.random() * 350;
+                  const duration = 1.2 + Math.random() * 1;
+                  const size = 2 + Math.random() * 5;
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      className="absolute rounded-full bg-primary"
+                      style={{
+                        width: size,
+                        height: size,
+                        left: '50%',
+                        top: '50%',
+                        pointerEvents: 'none',
+                      }}
+                      initial={{ 
+                        scale: 0, 
+                        x: 0, 
+                        y: 0,
+                        opacity: 1,
+                      }}
+                      animate={{
+                        x: distance * Math.cos(angle),
+                        y: distance * Math.sin(angle),
+                        scale: [0, 1, 0.5],
+                        opacity: [1, 0.8, 0],
+                      }}
+                      transition={{
+                        duration: duration,
+                        ease: "easeOut",
+                        repeat: Infinity,
+                        repeatDelay: Math.random() * 0.5,
+                      }}
+                    />
+                  );
+                })}
+              </motion.span>
+              .{' '}
               With 3+ years of experience, I transform ideas into captivating visual experiences 
               that engage, connect, and inspire.
             </motion.p>
@@ -93,7 +151,7 @@ const HeroSection = () => {
               {[
                 { value: '150+', label: 'Projects' },
                 { value: '3+', label: 'Years' },
-                { value: '50+', label: 'Clients' },
+                { value: '20+', label: 'Clients' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="font-display text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>

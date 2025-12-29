@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useSound } from '@/contexts/SoundContext';
 
 const navItems = [
   { label: 'Work', href: '#work' },
@@ -9,6 +10,22 @@ const navItems = [
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
+
+const SoundToggle = () => {
+  const { isSoundEnabled, toggleSound } = useSound();
+  
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleSound}
+      className="text-muted-foreground hover:text-foreground transition-colors"
+      aria-label={isSoundEnabled ? 'Mute sounds' : 'Unmute sounds'}
+    >
+      {isSoundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+    </Button>
+  );
+};
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,19 +43,22 @@ const Header = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden md:flex items-center gap-6">
+          <ul className="flex items-center gap-8">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <SoundToggle />
+        </div>
 
         <Button
           variant="ghost"
@@ -61,24 +81,37 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-background border-b border-border"
           >
-            <ul className="container mx-auto px-4 py-6 flex flex-col gap-4">
-              {navItems.map((item, index) => (
-                <motion.li
-                  key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <a
-                    href={item.href}
-                    className="text-foreground hover:text-primary transition-colors text-lg font-medium block py-2"
-                    onClick={() => setIsOpen(false)}
+            <div className="container mx-auto px-4 py-6">
+              <ul className="flex flex-col gap-4">
+                {navItems.map((item, index) => (
+                  <motion.li
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    {item.label}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
+                    <a
+                      href={item.href}
+                      className="text-foreground hover:text-primary transition-colors text-lg font-medium block py-2"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navItems.length * 0.1 }}
+                className="mt-4 pt-4 border-t border-border"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-muted-foreground text-sm">Sound Effects</span>
+                  <SoundToggle />
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
