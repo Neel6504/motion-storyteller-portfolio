@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, ExternalLink, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Video Editing', 'Branding'];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival' ];
 
 const projects = [
   {
@@ -78,6 +78,106 @@ const projects = [
     description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
     tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
   },
+  {
+    id: 9,
+    title: 'Brand Guidelines Video',
+    category: 'Meta Ads',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767023724/launcher_1_-_frame_at_0m34s_kbhz3y.jpg',
+    videoUrl: 'https://www.youtube.com/embed/Prz9xOvFbw4',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 10,
+    title: 'Brand Guidelines Video',
+    category: 'Cafe works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024095/toastt_-_Trim_-_frame_at_0m1s_fzjvj9.jpg',
+    videoUrl: 'https://youtube.com/embed/gnjneSot6_o?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 11,
+    title: 'Brand Guidelines Video',
+    category: 'Cafe works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024403/cafe_reel_-_frame_at_0m7s_fbz5b9.jpg',
+    videoUrl: 'https://youtube.com/embed/z1P45tJzriw?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 12,
+    title: 'Brand Guidelines Video',
+    category: 'Storytelling Testimonial',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024675/reel49_-_frame_at_0m15s_icrqnu.jpg',
+    videoUrl: 'https://youtube.com/embed/y4hAXmbsnGI?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 13,
+    title: 'Brand Guidelines Video',
+    category: 'Storytelling Testimonial',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026125/Typography_-_frame_at_0m19s_lir12k.jpg',
+    videoUrl: 'https://youtube.com/embed/FEnBNLQoIa0?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 14,
+    title: 'Brand Guidelines Video',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026979/king_fab_-_frame_at_0m11s_ehe0b1.jpg',
+    videoUrl: 'https://youtube.com/embed/COhZzCdoom0?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 15,
+    title: 'Brand Guidelines Video',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027227/Video-423_-_frame_at_0m28s_nc5upc.jpg',
+    videoUrl: 'https://youtube.com/embed/LGWS-82EMO8?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 16,
+    title: 'Brand Guidelines Video',
+    category: 'Generative AI Video',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027712/furniture_-_frame_at_0m24s_zbvyzm.jpg',
+    videoUrl: 'https://youtube.com/embed/YMu3YgvcCyc?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 17,
+    title: 'Brand Guidelines Video',
+    category: 'Generative AI Video',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027999/ras_intro_-_frame_at_0m8s_usot8c.jpg',
+    videoUrl: 'https://youtube.com/embed/d9aicMlhMSU?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 18,
+    title: 'Brand Guidelines Video',
+    category: 'Festival',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767028247/intro_-_frame_at_0m5s_dnxagh.jpg',
+    videoUrl: 'https://youtube.com/embed/KiEyx2CLBE4?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  {
+    id: 19,
+    title: 'Brand Guidelines Video',
+    category: 'Storytelling Testimonial ',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767029010/gastro_1_-_frame_at_0m57s_xllywv.jpg',
+    videoUrl: 'https://youtube.com/embed/ITzJr_9zZKI?feature=share',
+    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+  },
+  
 ];
 
 const PortfolioSection = () => {
