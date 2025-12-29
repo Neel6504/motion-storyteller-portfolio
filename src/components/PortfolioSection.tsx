@@ -171,7 +171,7 @@ const projects = [
   {
     id: 19,
     title: 'Brand Guidelines Video',
-    category: 'Storytelling Testimonial ',
+    category: 'Storytelling Testimonial',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767029010/gastro_1_-_frame_at_0m57s_xllywv.jpg',
     videoUrl: 'https://youtube.com/embed/ITzJr_9zZKI?feature=share',
     description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
