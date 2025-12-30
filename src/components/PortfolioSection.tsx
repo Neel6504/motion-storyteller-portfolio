@@ -193,7 +193,7 @@ const projects = [
     title: 'Diamond Zoom',
     category: '3D Animation',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860128/3d_diamond_-_frame_at_0m1s_zhhmba.jpg',
-    videoUrl: 'hhttps://youtube.com/embed/hLredCyMk_8?feature=share',
+    videoUrl: 'https://youtube.com/embed/hLredCyMk_8?feature=share',
     tools: ['Cinema 4D', 'After Effects'],
   },
   {
