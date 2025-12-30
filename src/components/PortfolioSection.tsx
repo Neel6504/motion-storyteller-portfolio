@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival' ];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'More After Effects Works' ];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -166,57 +166,51 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
 const projects = [
   {
     id: 1,
-    title: 'Cosmic Voyage',
+    title: 'Content Creation',
     category: '3D Animation',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766167814/Screenshot_2025-12-19_234001_l7d1gl.png',
     videoUrl: 'https://www.youtube.com/embed/M2cESo0s81w?feature=share',
-    description: 'A stunning 3D animation exploring the depths of space with cinematic camera movements.',
-    tools: ['Cinema 4D', 'After Effects', 'Octane Render'],
+    tools: ['Cinema 4D', 'After Effects'],
   },
   {
     id: 2,
-    title: 'Brand Identity Motion',
+    title: 'Brand Identity',
     category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766858278/metaloop_graphics_3_-_Copy_-_Trim_-_frame_at_0m2s_kxftqe.jpg',
     videoUrl: 'https://youtube.com/embed/s7zX_gLfKTw?feature=share',
-    description: 'Dynamic logo animation and brand identity motion system for a tech startup.',
-    tools: ['After Effects', 'Illustrator'],
+    tools: ['After Effects'],
   },
   {
     id: 3,
-    title: 'Particle Symphony',
+    title: 'Diamond Cycle',
     category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860017/diamond_cycle_-_Trim_-_frame_at_0m8s_cl0w99.jpg',
     videoUrl: 'https://youtube.com/embed/3oflYDt-0NQ?feature=share',
-    description: 'Abstract particle simulation synchronized with orchestral music.',
-    tools: ['Houdini', 'After Effects', 'Nuke'],
+    tools: ['After Effects'],
   },
   {
     id: 4,
-    title: 'Product Reveal',
+    title: 'Diamond Zoom',
     category: '3D Animation',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860128/3d_diamond_-_frame_at_0m1s_zhhmba.jpg',
     videoUrl: 'hhttps://youtube.com/embed/hLredCyMk_8?feature=share',
-    description: 'High-end product visualization with dramatic lighting and camera work.',
-    tools: ['Blender', 'Substance Painter', 'After Effects'],
+    tools: ['Cinema 4D', 'After Effects'],
   },
   {
     id: 5,
-    title: 'Documentary Edit',
+    title: 'TEDx at Charusat',
     category: 'Logo Reveal',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860493/event_reveal_-_frame_at_0m3s_jppxhk.jpg',
     videoUrl: 'https://youtube.com/embed/pABpwfMbo5c?feature=share',
-    description: 'Award-winning documentary with compelling storytelling and pacing.',
-    tools: ['Premiere Pro', 'DaVinci Resolve', 'After Effects'],
+    tools: ['After Effects'],
   },
   {
     id: 6,
-    title: 'Tech Startup Promo',
+    title: 'Charusat Logo Reveal',
     category: 'Logo Reveal',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860729/Logo_Intro_-_frame_at_0m1s_z3cciq.jpg',
     videoUrl: 'https://www.youtube.com/embed/7qbdWk6i-mY',
-    description: 'Energetic promotional video combining live action with motion graphics.',
-    tools: ['After Effects', 'Premiere Pro', 'Photoshop'],
+    tools: ['After Effects'],
   },
   {
     id: 7,
@@ -224,118 +218,160 @@ const projects = [
     category: 'Logo Reveal',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860926/logo_reveal_-_frame_at_0m0s_h7rfa2.jpg',
     videoUrl: 'https://www.youtube.com/embed/Ed3sG7-Z-bs',
-    description: 'Compilation of VFX work including compositing, rotoscoping, and CGI integration.',
-    tools: ['Nuke', 'After Effects', 'Mocha Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 8,
-    title: 'Brand Guidelines Video',
+    title: 'Messanger',
     category: 'Meta Ads',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766898813/Meta_Ad_-_frame_at_0m4s_pc9gbn.jpg',
     videoUrl: 'https://www.youtube.com/embed/28GsBph5Fuw',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 9,
-    title: 'Brand Guidelines Video',
+    title: 'Calculator Launcher',
     category: 'Meta Ads',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767023724/launcher_1_-_frame_at_0m34s_kbhz3y.jpg',
     videoUrl: 'https://www.youtube.com/embed/Prz9xOvFbw4',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 10,
-    title: 'Brand Guidelines Video',
+    title: 'Toast',
     category: 'Cafe works',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024095/toastt_-_Trim_-_frame_at_0m1s_fzjvj9.jpg',
     videoUrl: 'https://youtube.com/embed/gnjneSot6_o?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['Premiere Pro'],
   },
   {
     id: 11,
-    title: 'Brand Guidelines Video',
+    title: 'Mojito',
     category: 'Cafe works',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024403/cafe_reel_-_frame_at_0m7s_fbz5b9.jpg',
     videoUrl: 'https://youtube.com/embed/z1P45tJzriw?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['Premiere Pro'],
   },
   {
     id: 12,
-    title: 'Brand Guidelines Video',
+    title: 'Unhealthy Diet',
     category: 'Storytelling Testimonial',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024675/reel49_-_frame_at_0m15s_icrqnu.jpg',
     videoUrl: 'https://youtube.com/embed/y4hAXmbsnGI?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 13,
-    title: 'Brand Guidelines Video',
+    title: 'Marketing School',
     category: 'Storytelling Testimonial',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026125/Typography_-_frame_at_0m19s_lir12k.jpg',
     videoUrl: 'https://youtube.com/embed/FEnBNLQoIa0?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 14,
-    title: 'Brand Guidelines Video',
+    title: 'Clothing',
     category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026979/king_fab_-_frame_at_0m11s_ehe0b1.jpg',
     videoUrl: 'https://youtube.com/embed/COhZzCdoom0?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['Premiere Pro'],
   },
   {
     id: 15,
-    title: 'Brand Guidelines Video',
+    title: 'Female Dress',
     category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027227/Video-423_-_frame_at_0m28s_nc5upc.jpg',
     videoUrl: 'https://youtube.com/embed/LGWS-82EMO8?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
     tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
   },
   {
     id: 16,
-    title: 'Brand Guidelines Video',
+    title: 'Furniture',
     category: 'Generative AI Video',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027712/furniture_-_frame_at_0m24s_zbvyzm.jpg',
     videoUrl: 'https://youtube.com/embed/YMu3YgvcCyc?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects', 'Generative AI'],
   },
   {
     id: 17,
-    title: 'Brand Guidelines Video',
+    title: 'Moradiya Ras',
     category: 'Generative AI Video',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027999/ras_intro_-_frame_at_0m8s_usot8c.jpg',
     videoUrl: 'https://youtube.com/embed/d9aicMlhMSU?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects', 'Generative AI'],
   },
   {
     id: 18,
-    title: 'Brand Guidelines Video',
+    title: 'Navratri 2025',
     category: 'Festival',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767028247/intro_-_frame_at_0m5s_dnxagh.jpg',
     videoUrl: 'https://youtube.com/embed/KiEyx2CLBE4?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
   {
     id: 19,
-    title: 'Brand Guidelines Video',
+    title: 'Gastro',
     category: 'Storytelling Testimonial',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767029010/gastro_1_-_frame_at_0m57s_xllywv.jpg',
     videoUrl: 'https://youtube.com/embed/ITzJr_9zZKI?feature=share',
-    description: 'Animated brand guidelines explaining logo usage, colors, and typography.',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    tools: ['After Effects'],
   },
-  
+  {
+    id: 20,
+    title: 'Ring Choose',
+    category: 'Jewellery',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767116198/ring_choose_-_frame_at_0m7s_md23zk.jpg',
+    videoUrl: 'https://youtube.com/embed/S8Ah77OdqKg?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 21  ,
+    title: 'Diamond Showcase',
+    category: 'Jewellery',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767116655/vasant_diamond_-_frame_at_0m7s_xjvtx7.jpg',
+    videoUrl: 'https://youtube.com/embed/eBNUSdUINqg?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 22,
+    title: 'Over Text',
+    category: 'Jewellery',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767116820/lgd_overtext_-_Trim_-_frame_at_0m5s_yuaucb.jpg',
+    videoUrl: 'https://youtube.com/embed/jSThINk5K0w?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 23,
+    title: 'Amenities Showcase',
+    category: 'More After Effects Works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117048/vraj_wave_1_-_frame_at_0m7s_niuuck.jpg',
+    videoUrl: 'https://youtube.com/embed/eC1nbG8PGss?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 24,
+    title: 'Carousel Video',
+    category: 'More After Effects Works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117261/vraj_carousel_-_Trim_-_frame_at_0m4s_wd1lju.jpg',
+    videoUrl: 'https://youtube.com/embed/BdPu8nhkJso?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 25,
+    title: 'Sketch',
+    category: 'More After Effects Works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117427/sketch_-_Trim_-_frame_at_0m7s_dddogb.jpg',
+    videoUrl: 'https://youtube.com/embed/cZ_BjtrDm6M?feature=share',
+    tools: ['After Effects'],
+  },
+  {
+    id: 26,
+    title: 'Trailer',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117731/Trailer_-_Trim_-_frame_at_0m2s_qq4jbf.jpg',
+    videoUrl: 'https://youtube.com/embed/NjdCBY-c0T0?feature=share',
+    tools: ['After Effects'],
+  },
 ];
 
 const PortfolioSection = () => {
@@ -460,7 +496,7 @@ const PortfolioSection = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="relative w-[90%] max-w-sm sm:max-w-xl max-h-[85vh] bg-card rounded-xl overflow-hidden border border-border flex flex-col"
+              className="relative w-[90%] max-w-sm sm:max-w-xl lg:max-w-4xl max-h-[85vh] bg-card rounded-xl overflow-hidden border border-border flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
@@ -491,12 +527,9 @@ const PortfolioSection = () => {
                   <span className="text-primary text-xs font-medium uppercase tracking-wider mb-2">
                     {selectedProject.category}
                   </span>
-                  <h3 id="modal-title" className="font-display font-bold text-2xl md:text-3xl text-foreground mb-4">
+                  <h3 id="modal-title" className="font-display font-bold text-2xl md:text-3xl text-foreground mb-6">
                     {selectedProject.title}
                   </h3>
-                  <p className="text-muted-foreground mb-6 flex-1">
-                    {selectedProject.description}
-                  </p>
 
                   <div className="space-y-4">
                     <div>
@@ -512,11 +545,6 @@ const PortfolioSection = () => {
                         ))}
                       </div>
                     </div>
-
-                    <Button className="w-full gap-2">
-                      <ExternalLink className="w-4 h-4" />
-                      View Full Project
-                    </Button>
                   </div>
                 </div>
               </div>

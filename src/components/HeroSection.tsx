@@ -2,10 +2,31 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import FilmReel from './FilmReel';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Play } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 
 const HeroSection = () => {
   const [isNameHovered, setIsNameHovered] = useState(false);
+  const magneticRefWork = useMagneticEffect({ strength: 0.25, speed: 0.2 });
+  const magneticRefContact = useMagneticEffect({ strength: 0.25, speed: 0.2 });
+  
+  // Mouse spotlight effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 30 });
+  const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+  
   const textReveal = {
     hidden: { opacity: 0, y: 60 },
     visible: (i: number) => ({
@@ -21,12 +42,24 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero section">
+      {/* Mouse-following spotlight */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+        style={{
+          background: useTransform(
+            [smoothMouseX, smoothMouseY],
+            ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
+          ),
+        }}
+      />
+      
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
       
       {/* Red accent glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
@@ -37,7 +70,7 @@ const HeroSection = () => {
               initial="hidden"
               animate="visible"
               variants={textReveal}
-              className="text-primary font-medium mb-4 tracking-widest uppercase text-sm"
+              className="text-primary font-medium mb-4 tracking-widest uppercase text-lg md:text-xl"
             >
               Motion Designer & Video Editor
             </motion.p>
@@ -129,15 +162,19 @@ const HeroSection = () => {
               variants={textReveal}
               className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
-              <Button size="lg" className="group gap-2" asChild>
-                <a href="#work">
-                  <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  View My Work
-                </a>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <a href="#contact">Get in Touch</a>
-              </Button>
+              <div ref={magneticRefWork as any}>
+                <Button size="lg" className="group gap-2" asChild>
+                  <a href="#work">
+                    <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                    View My Work
+                  </a>
+                </Button>
+              </div>
+              <div ref={magneticRefContact as any}>
+                <Button variant="outline" size="lg" asChild>
+                  <a href="#contact">Get in Touch</a>
+                </Button>
+              </div>
             </motion.div>
 
             {/* Stats */}
@@ -178,16 +215,43 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
-          className="absolute bottom-18 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors mt-16"
+          className="absolute bottom-18 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 group cursor-pointer"
           aria-label="Scroll to work section"
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+          {/* Animated mouse icon */}
+          <motion.div 
+            className="relative w-6 h-10 border-2 border-primary/40 rounded-full flex items-start justify-center pt-2 overflow-hidden"
+            whileHover={{ borderColor: 'hsl(var(--primary))' }}
           >
-            <ArrowDown className="w-5 h-5" />
+            {/* Scroll wheel */}
+            <motion.div
+              className="w-1 h-2 bg-primary rounded-full"
+              animate={{ 
+                y: [0, 12, 0],
+                opacity: [1, 0.3, 1]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            
+            {/* Glow effect */}
+            <motion.div
+              className="absolute inset-0 bg-primary/10 blur-md"
+              animate={{
+                opacity: [0.2, 0.5, 0.2]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </motion.div>
+          
+          <motion.span 
+            className="text-xs uppercase tracking-[0.3em] text-muted-foreground group-hover:text-primary transition-colors font-medium"
+          >
+            Scroll
+          </motion.span>
         </motion.a>
       </div>
     </section>

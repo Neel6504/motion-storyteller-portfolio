@@ -27,7 +27,7 @@ const FilmReel = () => {
 
   return (
     <motion.div
-      className="relative w-32 h-32 md:w-40 md:h-40 cursor-pointer"
+      className="relative w-48 h-48 md:w-56 md:h-56 cursor-pointer"
       style={{ perspective: 1000 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}

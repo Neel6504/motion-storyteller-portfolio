@@ -13,7 +13,7 @@ const tools = [
     Icon: Layers,
     skillLevel: 95,
     yearsExp: '3+',
-    projectCount: 80,
+    projectCount: 75,
   },
   { 
     name: 'Adobe Premiere Pro', 
@@ -25,7 +25,7 @@ const tools = [
     Icon: Play,
     skillLevel: 90,
     yearsExp: '3+',
-    projectCount: 100,
+    projectCount: 30,
   },
   { 
     name: 'CapCut', 
@@ -37,7 +37,7 @@ const tools = [
     Icon: Scissors,
     skillLevel: 85,
     yearsExp: '2+',
-    projectCount: 60,
+    projectCount: 30,
   },
   { 
     name: 'Canva', 
@@ -49,7 +49,7 @@ const tools = [
     Icon: Palette,
     skillLevel: 88,
     yearsExp: '3+',
-    projectCount: 70,
+    projectCount: 15,
   },
 ];
 
@@ -165,35 +165,11 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                   className="w-full h-full object-contain"
                 />
               </motion.div>
-              
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1"
-                style={{ 
-                  translateZ: 80,
-                  x: parallaxLayer3X,
-                  y: parallaxLayer3Y,
-                }}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ 
-                  scale: isHovered ? 1 : 0,
-                  rotate: isHovered ? 0 : -180,
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              >
-                <Sparkles className="w-3 h-3" />
-                hello
-              </motion.div>
             </div>
 
             {/* Skill percentage */}
             <motion.div
-              className="text-right"
-              style={{ 
-                translateZ: 50,
-                x: useTransform(parallaxLayer1X, (x) => -x * 0.5),
-                y: useTransform(parallaxLayer1Y, (y) => -y * 0.5),
-              }}
+              className="text-right flex-shrink-0"
               animate={{ scale: isHovered ? 1.15 : 1 }}
             >
               <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
@@ -205,7 +181,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
 
           {/* Tool name and description */}
           <motion.div 
-            className="mb-4 md:mb-6"
+            className="mb-4 md:mb-6 h-[72px]"
             style={{ 
               translateZ: 25,
             }}
@@ -265,7 +241,14 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
               translateZ: 25,
             }}
           >
-            <div className="flex items-center gap-2">
+            <motion.div 
+              className="flex items-center gap-2"
+              style={{ 
+                translateZ: 70,
+                x: parallaxLayer2X,
+                y: parallaxLayer2Y,
+              }}
+            >
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <tool.Icon className="w-4 h-4 text-primary" />
               </div>
@@ -273,7 +256,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                 <div className="text-sm font-bold text-foreground">{tool.projectCount}+</div>
                 <div className="text-xs text-muted-foreground">Projects</div>
               </div>
-            </div>
+            </motion.div>
             
             <motion.div
               className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center"

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSound } from '@/contexts/SoundContext';
+import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 
 const navItems = [
   { label: 'Work', href: '#work' },
@@ -13,9 +14,11 @@ const navItems = [
 
 const SoundToggle = () => {
   const { isSoundEnabled, toggleSound } = useSound();
+  const magneticRef = useMagneticEffect({ strength: 0.2, speed: 0.15 });
   
   return (
     <Button
+      ref={magneticRef as any}
       variant="ghost"
       size="icon"
       onClick={toggleSound}
@@ -27,8 +30,32 @@ const SoundToggle = () => {
   );
 };
 
+const NavLink = ({ item }: { item: typeof navItems[0] }) => {
+  const magneticRef = useMagneticEffect({ strength: 0.15, speed: 0.2 });
+
+  return (
+    <li ref={magneticRef as any}>
+      <a
+        href={item.href}
+        className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
+      >
+        {item.label}
+        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+      </a>
+    </li>
+  );
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoAnimating, setIsLogoAnimating] = useState(false);
+  const logoRef = useMagneticEffect({ strength: 0.2, speed: 0.15 });
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsLogoAnimating(true);
+    setTimeout(() => setIsLogoAnimating(false), 600);
+  };
 
   return (
     <motion.header
@@ -38,23 +65,40 @@ const Header = () => {
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50"
     >
       <nav className="container mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
-        <a href="#" className="font-display font-bold text-xl md:text-2xl text-foreground hover:text-primary transition-colors">
+        <motion.a 
+          ref={logoRef as any}
+          href="#" 
+          onClick={handleLogoClick}
+          className="font-display font-bold text-xl md:text-2xl text-foreground hover:text-primary transition-colors inline-block cursor-pointer"
+          animate={{
+            scale: isLogoAnimating ? [1, 1.15, 1] : 1,
+            filter: isLogoAnimating 
+              ? [
+                  'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
+                  'drop-shadow(0 0 20px rgba(239, 68, 68, 0.8)) drop-shadow(0 0 40px rgba(239, 68, 68, 0.6))',
+                  'drop-shadow(0 0 0px rgba(239, 68, 68, 0))'
+                ]
+              : 'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
+          }}
+          transition={{
+            scale: {
+              duration: 0.5,
+              ease: [0.4, 0, 0.2, 1], // ease-in-out
+            },
+            filter: {
+              duration: 0.5,
+              ease: [0, 0, 0.2, 1], // ease-out
+            },
+          }}
+        >
           NL<span className="text-primary">.</span>
-        </a>
+        </motion.a>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
           <ul className="flex items-center gap-8">
             {navItems.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium relative group"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                </a>
-              </li>
+              <NavLink key={item.label} item={item} />
             ))}
           </ul>
           <SoundToggle />

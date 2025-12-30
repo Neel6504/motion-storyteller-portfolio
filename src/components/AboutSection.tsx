@@ -44,12 +44,91 @@ const AboutSection = () => {
               {[
                 { icon: Briefcase, label: 'Projects Completed', value: '150+' },
                 { icon: GraduationCap, label: 'Years Experience', value: '3+' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <stat.icon className="w-5 h-5 text-primary mx-auto mb-2" />
-                  <p className="font-display text-xl md:text-2xl font-bold text-foreground">{stat.value}</p>
-                  <p className="text-muted-foreground text-xs">{stat.label}</p>
-                </div>
+              ].map((stat, index) => (
+                <motion.div 
+                  key={stat.label} 
+                  className="text-center group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2, duration: 0.5 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {/* Animated background on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-primary/5 rounded-xl -z-10"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* Rotating border effect */}
+                  <motion.div
+                    className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-xl opacity-0 group-hover:opacity-100 -z-10 blur-sm"
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    style={{ backgroundSize: '200% 100%' }}
+                  />
+                  
+                  {/* Icon with animation */}
+                  <motion.div
+                    animate={{ 
+                      rotateY: [0, 360],
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                      repeatDelay: 2
+                    }}
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    <stat.icon className="w-5 h-5 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                  </motion.div>
+                  
+                  {/* Counter animation */}
+                  <motion.p 
+                    className="font-display text-xl md:text-2xl font-bold text-foreground"
+                    initial={{ scale: 0.5 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 200, 
+                      damping: 10,
+                      delay: index * 0.2 + 0.3
+                    }}
+                  >
+                    {stat.value}
+                  </motion.p>
+                  
+                  <p className="text-muted-foreground text-xs group-hover:text-primary transition-colors">
+                    {stat.label}
+                  </p>
+                  
+                  {/* Sparkle effect on hover */}
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-primary rounded-full"
+                      style={{
+                        top: `${20 + i * 30}%`,
+                        left: `${10 + i * 35}%`,
+                      }}
+                      animate={{
+                        scale: [0, 1, 0],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                      }}
+                    />
+                  ))}
+                </motion.div>
               ))}
             </div>
           </motion.div>
