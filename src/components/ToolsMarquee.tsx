@@ -182,57 +182,17 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
 
           {/* Tool name and description */}
           <motion.div 
-            className="mb-4 md:mb-6 h-[72px]"
+            className="mb-4 md:mb-6 min-h-[60px] md:min-h-[72px]"
             style={{ 
               translateZ: 25,
             }}
           >
-            <h3 className="font-display font-bold text-lg sm:text-xl md:text-2xl text-foreground mb-2 group-hover:text-primary transition-colors">
+            <h3 className="font-display font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-2">
               {tool.name}
             </h3>
-            <p className="text-muted-foreground text-xs sm:text-sm group-hover:text-foreground/80 transition-colors">
+            <p className="text-muted-foreground text-xs sm:text-sm group-hover:text-foreground/80 transition-colors line-clamp-2">
               {tool.description}
             </p>
-          </motion.div>
-
-          {/* Skill bar with animation and parallax */}
-          <motion.div 
-            className="mb-4 md:mb-6"
-            style={{ 
-              translateZ: 20,
-            }}
-          >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-muted-foreground">Proficiency</span>
-              <motion.span
-                className="text-xs font-medium text-primary"
-                animate={{ opacity: isHovered ? 1 : 0 }}
-              >
-                Expert
-              </motion.span>
-            </div>
-            <div className="h-2 bg-muted/50 rounded-full overflow-hidden relative">
-              <motion.div
-                className={`h-full bg-gradient-to-r ${tool.hoverColor} relative`}
-                initial={{ width: '0%' }}
-                whileInView={{ width: `${tool.skillLevel}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, delay: index * 0.2 }}
-              >
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{
-                    x: ['-100%', '100%'],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatDelay: 1,
-                  }}
-                />
-              </motion.div>
-            </div>
           </motion.div>
 
           {/* Stats */}
