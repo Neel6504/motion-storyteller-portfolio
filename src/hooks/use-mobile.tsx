@@ -7,12 +7,35 @@ export function useIsMobile() {
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+
+    const update = () => {
+      const widthMobile = window.innerWidth < MOBILE_BREAKPOINT;
+      const prefersCoarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+      const hasTouch = typeof navigator !== 'undefined' && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
+      setIsMobile(!!(widthMobile || prefersCoarse || hasTouch));
     };
-    mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    return () => mql.removeEventListener("change", onChange);
+
+    // run once to initialize
+    update();
+
+    // Use addEventListener if available, otherwise fallback to addListener for older Safari
+    if (typeof mql.addEventListener === 'function') {
+      mql.addEventListener('change', update);
+    } else if (typeof (mql as any).addListener === 'function') {
+      (mql as any).addListener(update);
+    }
+
+    // also watch window resize as a fallback
+    window.addEventListener('resize', update);
+
+    return () => {
+      if (typeof mql.removeEventListener === 'function') {
+        mql.removeEventListener('change', update);
+      } else if (typeof (mql as any).removeListener === 'function') {
+        (mql as any).removeListener(update);
+      }
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
   return !!isMobile;
