@@ -16,11 +16,37 @@ const queryClient = new QueryClient();
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  // Wait for all images to load before showing site
+  const handleLoadingComplete = () => {
+    // Find all images in the document
+    const images = Array.from(document.images);
+    if (images.length === 0) {
+      setIsLoading(false);
+      return;
+    }
+    let loaded = 0;
+    images.forEach(img => {
+      if (img.complete) {
+        loaded++;
+      } else {
+        img.addEventListener('load', () => {
+          loaded++;
+          if (loaded === images.length) setIsLoading(false);
+        });
+        img.addEventListener('error', () => {
+          loaded++;
+          if (loaded === images.length) setIsLoading(false);
+        });
+      }
+    });
+    if (loaded === images.length) setIsLoading(false);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <SoundProvider>
         <TooltipProvider>
-          <Loader onLoadingComplete={() => setIsLoading(false)} />
+          <Loader onLoadingComplete={handleLoadingComplete} />
           {!isLoading && (
             <>
               <MouseSpotlight />
