@@ -1,9 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const updateFlags = () => {
+      setIsMobile(window.innerWidth < 768);
+      try {
+        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        setReducedMotion(mq.matches);
+      } catch {}
+    };
+    updateFlags();
+    window.addEventListener('resize', updateFlags);
+
+    // If mobile or reduced-motion, skip rendering to improve performance
+    if (window.innerWidth < 768 || reducedMotion) {
+      return () => {
+        window.removeEventListener('resize', updateFlags);
+      };
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -29,7 +48,8 @@ const ParticleBackground = () => {
       rotationSpeed: number;
     }> = [];
 
-    const particleCount = 80;
+    // Fewer particles on smaller screens
+    const particleCount = window.innerWidth < 1024 ? 24 : 60;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -86,26 +106,28 @@ const ParticleBackground = () => {
         ctx.restore();
       });
 
-      // Draw connecting lines with gradient
-      particles.forEach((particle, i) => {
-        particles.slice(i + 1).forEach((other) => {
-          const dx = particle.x - other.x;
-          const dy = particle.y - other.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      // Skip connecting lines on mobile to reduce CPU
+      if (window.innerWidth >= 768) {
+        particles.forEach((particle, i) => {
+          particles.slice(i + 1).forEach((other) => {
+            const dx = particle.x - other.x;
+            const dy = particle.y - other.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 200) {
-            const gradient = ctx.createLinearGradient(particle.x, particle.y, other.x, other.y);
-            gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
-            gradient.addColorStop(1, `hsla(${other.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
+            if (distance < 200) {
+              const gradient = ctx.createLinearGradient(particle.x, particle.y, other.x, other.y);
+              gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
+              gradient.addColorStop(1, `hsla(${other.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(other.x, other.y);
+              ctx.strokeStyle = gradient;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          });
         });
-      });
+      }
 
       requestAnimationFrame(animate);
     };
@@ -114,16 +136,19 @@ const ParticleBackground = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', updateFlags);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      aria-hidden="true"
-      style={{ minHeight: '100vh', minWidth: '100vw' }}
-    />
+    isMobile || reducedMotion ? null : (
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 w-full h-full pointer-events-none z-0"
+        aria-hidden="true"
+        style={{ minHeight: '100vh', minWidth: '100vw' }}
+      />
+    )
   );
 };
 

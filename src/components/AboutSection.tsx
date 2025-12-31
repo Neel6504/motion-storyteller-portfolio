@@ -9,7 +9,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="py-20 md:py-32 relative"
+      className="py-20 md:py-32 relative overflow-hidden"
       aria-labelledby="about-heading"
       ref={sectionRef}
     >

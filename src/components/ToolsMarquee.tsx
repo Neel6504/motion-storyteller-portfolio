@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { Play, Scissors, Layers, Palette, Sparkles, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import CountUp from './CountUp';
@@ -57,6 +57,8 @@ const tools = [
 const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const hoverEnabled = !isMobile; // Disable interactivity on mobile
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -107,7 +109,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
       transition={{ duration: 0.6, delay: index * 0.1 }}
       style={{ perspective: 1500 }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => hoverEnabled && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       className="group relative h-auto min-h-full p-1 md:p-4"
     >
@@ -119,18 +121,18 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           transformStyle: 'preserve-3d',
         }}
         animate={{
-          scale: isHovered ? 1.08 : 1,
+          scale: hoverEnabled && isHovered ? 1.08 : 1,
           boxShadow: isHovered 
             ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(var(--primary), 0.3)'
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative bg-gradient-to-br from-card/90 to-card/60 md:backdrop-blur-xl border-2 border-border/30 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors duration-500 h-full w-full"
+        className={`relative bg-gradient-to-br from-card/90 to-card/60 md:backdrop-blur-xl border-2 border-border/30 rounded-2xl overflow-hidden ${hoverEnabled ? 'hover:border-primary/50' : ''} transition-colors duration-500 h-full w-full`}
       >
         {/* Subtle gradient overlay on hover */}
         <motion.div
           className={`absolute inset-0 bg-gradient-to-br ${tool.color} pointer-events-none`}
-          animate={{ opacity: isHovered ? 0.15 : 0 }}
+          animate={{ opacity: hoverEnabled && isHovered && !prefersReducedMotion ? 0.15 : 0 }}
           transition={{ duration: 0.3 }}
         />
 
@@ -140,7 +142,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           style={{
             background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
           }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
+          animate={{ opacity: hoverEnabled && isHovered && !prefersReducedMotion ? 1 : 0 }}
           transition={{ duration: 0.2 }}
         />
 
@@ -164,8 +166,8 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                   y: isMobile ? 0 : parallaxLayer2Y,
                 }}
                 animate={{
-                  scale: isHovered ? 1.1 : 1,
-                  rotate: isHovered ? [0, -5, 5, 0] : 0,
+                  scale: hoverEnabled && isHovered ? 1.05 : 1,
+                  rotate: prefersReducedMotion ? 0 : (hoverEnabled && isHovered ? [0, -3, 3, 0] : 0),
                 }}
                 transition={{ duration: 0.5 }}
               >
@@ -180,7 +182,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
             {/* Skill percentage */}
             <motion.div
               className="text-right flex-shrink-0"
-              animate={{ scale: isHovered ? 1.15 : 1 }}
+              animate={{ scale: hoverEnabled && isHovered ? 1.15 : 1 }}
             >
               <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 <CountUp value={`${tool.skillLevel}%`} />
@@ -196,10 +198,10 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
               translateZ: isMobile ? 0 : 25,
             }}
           >
-            <h3 className="font-display font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-2">
+            <h3 className={`font-display font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 md:mb-2 ${hoverEnabled ? 'group-hover:text-primary' : ''} transition-colors line-clamp-2`}>
               {tool.name}
             </h3>
-            <p className="text-muted-foreground text-xs sm:text-sm group-hover:text-foreground/80 transition-colors line-clamp-2">
+            <p className={`text-muted-foreground text-xs sm:text-sm ${hoverEnabled ? 'group-hover:text-foreground/80' : ''} transition-colors line-clamp-2`}>
               {tool.description}
             </p>
           </motion.div>
@@ -238,7 +240,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                 y: isMobile ? 0 : parallaxLayer2Y,
               }}
               animate={{
-                rotate: isHovered ? 360 : 0,
+                rotate: prefersReducedMotion ? 0 : (hoverEnabled && isHovered ? 360 : 0),
               }}
               transition={{ duration: 0.6 }}
             >
@@ -248,13 +250,15 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
         </motion.div>
 
         {/* Corner accent */}
-        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" />
+        <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 ${hoverEnabled ? 'group-hover:opacity-100' : ''} transition-opacity duration-500 pointer-events-none rounded-2xl`} />
       </motion.div>
     </motion.div>
   );
 };
 
 const ToolsMarquee = () => {
+  // Respect user's reduced motion preference within this component
+  const prefersReducedMotion = useReducedMotion();
   return (
     <section id="tools" className="py-16 md:py-24 relative overflow-hidden" aria-label="Software tools">
       {/* Animated grid background */}
@@ -268,9 +272,9 @@ const ToolsMarquee = () => {
         }} />
       </div>
 
-      {/* Floating particles */}
+      {/* Floating particles (disabled on mobile or reduced-motion) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {Array.from({ length: (typeof window !== 'undefined' && (window.innerWidth < 768 || prefersReducedMotion)) ? 0 : 10 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-primary/20 rounded-full"
@@ -279,14 +283,14 @@ const ToolsMarquee = () => {
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
+              y: prefersReducedMotion ? 0 : [0, -24, 0],
+              opacity: prefersReducedMotion ? 0.3 : [0.2, 0.5, 0.2],
               scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
+              duration: prefersReducedMotion ? 0 : (3 + Math.random() * 2),
+              repeat: prefersReducedMotion ? 0 : Infinity,
+              delay: prefersReducedMotion ? 0 : Math.random() * 2,
             }}
           />
         ))}

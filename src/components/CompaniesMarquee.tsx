@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 
@@ -15,6 +15,7 @@ const companies = [
 
 const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -60,7 +61,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
         {/* Gradient overlay */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg pointer-events-none"
-          animate={{ opacity: isHovered ? 1 : 0 }}
+          animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         />
 
@@ -70,7 +71,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
           style={{
             background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.15) 0%, transparent 50%)`,
           }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
+          animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
           transition={{ duration: 0.2 }}
         />
 
@@ -85,12 +86,12 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
         </motion.span>
 
         {/* Sparkle icon on hover */}
-        <motion.div
+          <motion.div
           className="absolute -top-2 -right-2 z-20"
           initial={{ scale: 0, rotate: -180 }}
           animate={{
-            scale: isHovered ? 1 : 0,
-            rotate: isHovered ? 0 : -180,
+            scale: isHovered && !prefersReducedMotion ? 1 : 0,
+            rotate: isHovered && !prefersReducedMotion ? 0 : -180,
           }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
@@ -105,7 +106,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
         />
 
         {/* Burst particles on hover */}
-        {isHovered && [...Array(8)].map((_, i) => {
+        {isHovered && !prefersReducedMotion && [...Array(8)].map((_, i) => {
           const angle = (i * 45) * (Math.PI / 180);
           const distance = 40 + Math.random() * 20;
           
@@ -172,8 +173,8 @@ const CompaniesMarquee = () => {
         <div className="flex overflow-hidden">
           <motion.div
             className="flex gap-4 md:gap-6"
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 60, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+            animate={useReducedMotion() ? undefined : { x: ['0%', '-50%'] }}
+            transition={useReducedMotion() ? undefined : { duration: 60, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
           >
             {[...companies, ...companies, ...companies, ...companies].map((company, index) => (
               <CompanyCard key={`${company.name}-${index}`} company={company} index={index} />
