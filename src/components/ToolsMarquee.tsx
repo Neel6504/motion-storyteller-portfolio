@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Play, Scissors, Layers, Palette, Sparkles, Zap } from 'lucide-react';
 import { useState } from 'react';
+import CountUp from './CountUp';
 
 const tools = [
   { 
@@ -147,7 +148,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           <div className="flex items-start justify-between mb-4 md:mb-6">
             <div className="relative">
               <motion.div
-                className={`w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br ${tool.name === 'CapCut' ? 'bg-white' : tool.color} flex items-center justify-center transition-all duration-500 border-2 border-border/30 p-3 shadow-lg`}
+                className={`w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br ${tool.name === 'CapCut' ? 'bg-white' : tool.color} flex items-center justify-center transition-all duration-500 border-2 border-border/30 shadow-lg overflow-hidden p-2`}
                 style={{ 
                   translateZ: 60,
                   x: parallaxLayer2X,
@@ -162,7 +163,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                 <img 
                   src={tool.logo} 
                   alt={`${tool.name} logo`}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain pointer-events-none"
                 />
               </motion.div>
             </div>
@@ -173,7 +174,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
               animate={{ scale: isHovered ? 1.15 : 1 }}
             >
               <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                {tool.skillLevel}%
+                <CountUp value={`${tool.skillLevel}%`} />
               </div>
               <div className="text-xs text-muted-foreground">Mastery</div>
             </motion.div>
@@ -253,7 +254,9 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
                 <tool.Icon className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <div className="text-sm font-bold text-foreground">{tool.projectCount}+</div>
+                <div className="text-sm font-bold text-foreground">
+                  <CountUp value={`${tool.projectCount}+`} />
+                </div>
                 <div className="text-xs text-muted-foreground">Projects</div>
               </div>
             </motion.div>

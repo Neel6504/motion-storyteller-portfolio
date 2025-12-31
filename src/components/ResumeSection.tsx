@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { FileText, Download, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 
 const ResumeSection = () => {
+  const magneticRefView = useMagneticEffect({ strength: 0.2, speed: 0.15 });
+  const magneticRefDownload = useMagneticEffect({ strength: 0.2, speed: 0.15 });
   const resumePdfUrl = '/resume.pdf'; // Place your resume.pdf in the public folder
 
   const handleDownload = () => {
@@ -59,24 +62,27 @@ const ResumeSection = () => {
               <span className="font-medium text-sm md:text-base">Resume.pdf</span>
             </div>
             <div className="flex gap-2 justify-center sm:justify-end">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleViewPortfolio}
-                className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
-              >
-                <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                <span>View Resume</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleDownload}
-                className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
-              >
-                <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                <span>Download</span>
-              </Button>
+              <div ref={magneticRefView as any}>
+                <Button
+                  size="sm"
+                  onClick={handleViewPortfolio}
+                  className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  <span>View Resume</span>
+                </Button>
+              </div>
+              <div ref={magneticRefDownload as any}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDownload}
+                  className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
+                >
+                  <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  <span>Download</span>
+                </Button>
+              </div>
             </div>
           </div>
 

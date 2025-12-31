@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'More After Effects Works' ];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -371,6 +371,14 @@ const projects = [
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117731/Trailer_-_Trim_-_frame_at_0m2s_qq4jbf.jpg',
     videoUrl: 'https://youtube.com/embed/NjdCBY-c0T0?feature=share',
     tools: ['After Effects'],
+  },
+  {
+    id: 27,
+    title: 'Wedding Film',
+    category: 'Wedding',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767155754/Wedding_-_frame_at_0m40s_lqseqa.jpg',
+    videoUrl: 'https://youtube.com/embed/-tDuOCQdHYo',
+    tools: ['Capcut'],
   },
 ];
 

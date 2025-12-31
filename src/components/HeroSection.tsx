@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import FilmReel from './FilmReel';
 import { Button } from '@/components/ui/button';
+import CountUp from './CountUp';
 import { ArrowDown, Play } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useMagneticEffect } from '@/hooks/useMagneticEffect';
@@ -191,7 +192,9 @@ const HeroSection = () => {
                 { value: '20+', label: 'Clients' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-display text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
+                  <p className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                    <CountUp value={stat.value} startOnView={false} />
+                  </p>
                   <p className="text-muted-foreground text-sm">{stat.label}</p>
                 </div>
               ))}

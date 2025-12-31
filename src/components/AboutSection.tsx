@@ -1,9 +1,18 @@
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap } from 'lucide-react';
+import { useRef } from 'react';
+import CountUp from './CountUp';
 
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   return (
-    <section id="about" className="py-20 md:py-32 relative" aria-labelledby="about-heading">
+    <section
+      id="about"
+      className="py-20 md:py-32 relative"
+      aria-labelledby="about-heading"
+      ref={sectionRef}
+    >
       {/* Background accent */}
       <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
 
@@ -101,7 +110,7 @@ const AboutSection = () => {
                       delay: index * 0.2 + 0.3
                     }}
                   >
-                    {stat.value}
+                    <CountUp value={stat.value} />
                   </motion.p>
                   
                   <p className="text-muted-foreground text-xs group-hover:text-primary transition-colors">
