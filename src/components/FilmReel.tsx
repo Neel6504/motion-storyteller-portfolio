@@ -29,6 +29,43 @@ const FilmReel = () => {
     setIsHovered(false);
   };
 
+  // Render a lightweight, static SVG on mobile to avoid heavy motion work.
+  if (isMobile) {
+    return (
+      <div className="relative w-48 h-48 md:w-56 md:h-56">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx={50} cy={50} r={48} fill="none" stroke="hsl(var(--primary))" strokeWidth={2} />
+          <circle cx={50} cy={50} r={38} fill="none" stroke="hsl(var(--primary))" strokeWidth={1.5} />
+          <circle cx={50} cy={50} r={12} fill="hsl(var(--primary))" />
+          <circle cx={50} cy={50} r={8} fill="hsl(var(--background))" />
+          {[...Array(8)].map((_, i) => {
+            const angle = (i * 45) * (Math.PI / 180);
+            const x = 50 + 28 * Math.cos(angle);
+            const y = 50 + 28 * Math.sin(angle);
+            return <circle key={i} cx={x} cy={y} r={5} fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth={1} />;
+          })}
+          {[...Array(12)].map((_, i) => {
+            const angle = (i * 30 + 15) * (Math.PI / 180);
+            const x = 50 + 43 * Math.cos(angle);
+            const y = 50 + 43 * Math.sin(angle);
+            return (
+              <rect
+                key={i}
+                x={x - 2}
+                y={y - 4}
+                width={4}
+                height={8}
+                rx={1}
+                fill="hsl(var(--background))"
+                transform={`rotate(${i * 30 + 15}, ${x}, ${y})`}
+              />
+            );
+          })}
+        </svg>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className={`relative w-48 h-48 md:w-56 md:h-56 ${isMobile ? '' : 'cursor-pointer'}`}

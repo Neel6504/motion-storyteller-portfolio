@@ -12,7 +12,10 @@ export function useIsMobile() {
       const widthMobile = window.innerWidth < MOBILE_BREAKPOINT;
       const prefersCoarse = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
       const hasTouch = typeof navigator !== 'undefined' && (navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
-      setIsMobile(!!(widthMobile || prefersCoarse || hasTouch));
+
+      // Treat as mobile only when the viewport is narrow AND the device indicates coarse pointer or touch.
+      // This avoids classifying touch-enabled desktops/laptops as mobile and preserves hover effects there.
+      setIsMobile(!!(widthMobile && (prefersCoarse || hasTouch)));
     };
 
     // run once to initialize
