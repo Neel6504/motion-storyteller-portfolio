@@ -1,10 +1,18 @@
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import CountUp from './CountUp';
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section
@@ -13,8 +21,10 @@ const AboutSection = () => {
       aria-labelledby="about-heading"
       ref={sectionRef}
     >
-      {/* Background accent */}
-      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+      {/* Background accent (hidden on mobile) */}
+      {!isMobile && (
+        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+      )}
 
       <div className="container mx-auto px-4 md:px-6 relative">
         <div className="max-w-4xl mx-auto">
@@ -63,23 +73,28 @@ const AboutSection = () => {
                   transition={{ delay: index * 0.2, duration: 0.5 }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  {/* Animated background on hover */}
-                  <motion.div
-                    className="absolute inset-0 bg-primary/5 rounded-xl -z-10"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
+                  {/* Animated background on hover (disabled on mobile) */}
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute inset-0 bg-primary/5 rounded-xl -z-10"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
                   
                   {/* Rotating border effect */}
-                  <motion.div
-                    className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-xl opacity-0 group-hover:opacity-100 -z-10 blur-sm"
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    style={{ backgroundSize: '200% 100%' }}
-                  />
+                  {/* Rotating border effect (disabled on mobile) */}
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-xl opacity-0 group-hover:opacity-100 -z-10 blur-sm"
+                      animate={{
+                        backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      style={{ backgroundSize: '200% 100%' }}
+                    />
+                  )}
                   
                   {/* Icon with animation */}
                   <motion.div
@@ -117,26 +132,27 @@ const AboutSection = () => {
                     {stat.label}
                   </p>
                   
-                  {/* Sparkle effect on hover */}
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-primary rounded-full"
-                      style={{
-                        top: `${20 + i * 30}%`,
-                        left: `${10 + i * 35}%`,
-                      }}
-                      animate={{
-                        scale: [0, 1, 0],
-                        opacity: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        delay: i * 0.3,
-                      }}
-                    />
-                  ))}
+                  {/* Sparkle effect on hover (disabled on mobile) */}
+                  {!isMobile &&
+                    [...Array(3)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-1 h-1 bg-primary rounded-full"
+                        style={{
+                          top: `${20 + i * 30}%`,
+                          left: `${10 + i * 35}%`,
+                        }}
+                        animate={{
+                          scale: [0, 1, 0],
+                          opacity: [0, 1, 0],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          delay: i * 0.3,
+                        }}
+                      />
+                    ))}
                 </motion.div>
               ))}
             </div>

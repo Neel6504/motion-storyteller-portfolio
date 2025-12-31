@@ -12,6 +12,14 @@ export const useMagneticEffect = (options: MagneticOptions = {}) => {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
+    // Disable magnetic effect on small screens (mobile) to avoid odd touch behavior
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) {
+      // ensure any transform is cleared
+      element.style.transform = '';
+      element.style.transition = '';
+      return;
+    }
 
     let animationFrameId: number;
 

@@ -212,7 +212,8 @@ const HeroSection = () => {
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                    <CountUp value={stat.value} startOnView={false} />
+                    {/* Start counting from 0 when the stat enters view */}
+                    <CountUp value={stat.value} startOnView={true} />
                   </p>
                   <p className="text-muted-foreground text-sm">{stat.label}</p>
                 </div>
