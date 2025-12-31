@@ -76,12 +76,22 @@ const Loader = ({ onLoadingComplete }: { onLoadingComplete: () => void }) => {
 
             {/* Percentage */}
             <motion.p
-              className="text-muted-foreground text-sm font-medium"
+              className="text-muted-foreground text-sm font-medium mb-2"
               key={progress}
               initial={{ opacity: 0.5 }}
               animate={{ opacity: 1 }}
             >
               {progress}%
+            </motion.p>
+            
+            {/* Loading text */}
+            <motion.p
+              className="text-muted-foreground text-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              Loading your experience...
             </motion.p>
           </div>
         </motion.div>
