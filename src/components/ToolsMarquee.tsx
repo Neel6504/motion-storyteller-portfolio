@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Play, Scissors, Layers, Palette, Sparkles, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CountUp from './CountUp';
 
 const tools = [
@@ -56,8 +56,16 @@ const tools = [
 
 const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Enhanced 3D rotation with stronger effect
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
@@ -77,6 +85,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
   const parallaxLayer3Y = useSpring(useTransform(mouseY, [-0.5, 0.5], [-60, 60]), { stiffness: 400, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -104,9 +113,9 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
     >
       <motion.div
         style={{ 
-          rotateX, 
-          rotateY,
-          translateZ,
+          rotateX: isMobile ? 0 : rotateX, 
+          rotateY: isMobile ? 0 : rotateY,
+          translateZ: isMobile ? 0 : translateZ,
           transformStyle: 'preserve-3d',
         }}
         animate={{
@@ -116,7 +125,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-xl border-2 border-border/30 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors duration-500 h-full w-full"
+        className="relative bg-gradient-to-br from-card/90 to-card/60 md:backdrop-blur-xl border-2 border-border/30 rounded-2xl overflow-hidden hover:border-primary/50 transition-colors duration-500 h-full w-full"
       >
         {/* Subtle gradient overlay on hover */}
         <motion.div
@@ -139,9 +148,9 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
         <motion.div 
           className="relative p-4 sm:p-6 md:p-8" 
           style={{ 
-            translateZ: 30,
-            x: parallaxLayer1X,
-            y: parallaxLayer1Y,
+            translateZ: isMobile ? 0 : 30,
+            x: isMobile ? 0 : parallaxLayer1X,
+            y: isMobile ? 0 : parallaxLayer1Y,
           }}
         >
           {/* Header with logo and badge */}
@@ -150,9 +159,9 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
               <motion.div
                 className={`w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br ${tool.name === 'CapCut' ? 'bg-white' : tool.color} flex items-center justify-center transition-all duration-500 border-2 border-border/30 shadow-lg overflow-hidden p-2`}
                 style={{ 
-                  translateZ: 60,
-                  x: parallaxLayer2X,
-                  y: parallaxLayer2Y,
+                  translateZ: isMobile ? 0 : 60,
+                  x: isMobile ? 0 : parallaxLayer2X,
+                  y: isMobile ? 0 : parallaxLayer2Y,
                 }}
                 animate={{
                   scale: isHovered ? 1.1 : 1,
@@ -184,7 +193,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           <motion.div 
             className="mb-4 md:mb-6 min-h-[60px] md:min-h-[72px]"
             style={{ 
-              translateZ: 25,
+              translateZ: isMobile ? 0 : 25,
             }}
           >
             <h3 className="font-display font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors line-clamp-2">
@@ -199,15 +208,15 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           <motion.div 
             className="flex items-center justify-between pt-4 border-t border-border/30"
             style={{ 
-              translateZ: 25,
+              translateZ: isMobile ? 0 : 25,
             }}
           >
             <motion.div 
               className="flex items-center gap-2"
               style={{ 
-                translateZ: 70,
-                x: parallaxLayer2X,
-                y: parallaxLayer2Y,
+                translateZ: isMobile ? 0 : 70,
+                x: isMobile ? 0 : parallaxLayer2X,
+                y: isMobile ? 0 : parallaxLayer2Y,
               }}
             >
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -224,9 +233,9 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
             <motion.div
               className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center"
               style={{ 
-                translateZ: 70,
-                x: parallaxLayer2X,
-                y: parallaxLayer2Y,
+                translateZ: isMobile ? 0 : 70,
+                x: isMobile ? 0 : parallaxLayer2X,
+                y: isMobile ? 0 : parallaxLayer2Y,
               }}
               animate={{
                 rotate: isHovered ? 360 : 0,
