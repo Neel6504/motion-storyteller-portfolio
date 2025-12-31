@@ -53,12 +53,13 @@ const FilmReel = () => {
       <svg viewBox="0 0 100 100" className="w-full h-full">
         {/* Outer ring */}
         <motion.circle
-          cx="50"
-          cy="50"
-          r="48"
+          cx={50}
+          cy={50}
+          r={48}
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="2"
+          strokeWidth={2}
+          initial={{ r: 48, strokeWidth: 2 }}
           animate={{
             strokeWidth: isHovered ? 3 : 2,
             r: isHovered ? 49 : 48,
@@ -68,12 +69,13 @@ const FilmReel = () => {
         
         {/* Inner ring */}
         <motion.circle
-          cx="50"
-          cy="50"
-          r="38"
+          cx={50}
+          cy={50}
+          r={38}
           fill="none"
           stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
+          strokeWidth={1.5}
+          initial={{ r: 38, strokeWidth: 1.5 }}
           animate={{
             strokeWidth: isHovered ? 2.5 : 1.5,
           }}
@@ -82,19 +84,20 @@ const FilmReel = () => {
         
         {/* Center hole */}
         <motion.circle
-          cx="50"
-          cy="50"
-          r="12"
+          cx={50}
+          cy={50}
+          r={12}
           fill="hsl(var(--primary))"
+          initial={{ r: 12 }}
           animate={{
             r: isHovered ? 14 : 12,
           }}
           transition={{ duration: 0.3 }}
         />
         <circle
-          cx="50"
-          cy="50"
-          r="8"
+          cx={50}
+          cy={50}
+          r={8}
           fill="hsl(var(--background))"
         />
         
@@ -106,16 +109,12 @@ const FilmReel = () => {
           return (
             <motion.circle
               key={i}
-              cx={x}
-              cy={y}
-              r="5"
+              cx={typeof x === 'number' ? x : 0}
+              cy={typeof y === 'number' ? y : 0}
+              r={isHovered ? 6 : 5}
               fill="hsl(var(--background))"
               stroke="hsl(var(--primary))"
-              strokeWidth="1"
-              animate={{
-                r: isHovered ? 6 : 5,
-                strokeWidth: isHovered ? 1.5 : 1,
-              }}
+              strokeWidth={isHovered ? 1.5 : 1}
               transition={{ duration: 0.3, delay: i * 0.05 }}
             />
           );
@@ -129,17 +128,13 @@ const FilmReel = () => {
           return (
             <motion.rect
               key={i}
-              x={x - 2}
-              y={y - 4}
-              width="4"
-              height="8"
-              rx="1"
+              x={typeof x === 'number' ? x - 2 : 0}
+              y={typeof y === 'number' ? y - 4 : 0}
+              width={isHovered ? 5 : 4}
+              height={isHovered ? 9 : 8}
+              rx={1}
               fill="hsl(var(--background))"
-              transform={`rotate(${i * 30 + 15}, ${x}, ${y})`}
-              animate={{
-                width: isHovered ? 5 : 4,
-                height: isHovered ? 9 : 8,
-              }}
+              transform={`rotate(${i * 30 + 15}, ${typeof x === 'number' ? x : 0}, ${typeof y === 'number' ? y : 0})`}
               transition={{ duration: 0.3, delay: i * 0.03 }}
             />
           );

@@ -44,8 +44,8 @@ const CustomCursor = () => {
       }}
     >
       <svg
-        width="24"
-        height="24"
+        width={24}
+        height={24}
         viewBox="0 0 24 24"
         fill="none"
         className="-translate-x-1/2 -translate-y-1/2"
