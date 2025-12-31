@@ -16,6 +16,8 @@ const companies = [
 const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+  const [canHover, setCanHover] = useState(true);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -24,6 +26,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
   const translateZ = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(canHover && !isMobile)) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -41,7 +44,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
     <motion.div
       style={{ perspective: 1000 }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => (canHover && !isMobile) && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       className="flex-shrink-0 group"
     >
@@ -65,15 +68,17 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
           transition={{ duration: 0.3 }}
         />
 
-        {/* Spotlight effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
-          style={{
-            background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.15) 0%, transparent 50%)`,
-          }}
-          animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-        />
+        {/* Spotlight effect (desktop only) */}
+        {(canHover && !isMobile) && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
+            style={{
+              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.15) 0%, transparent 50%)`,
+            }}
+            animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
 
         {/* Company name */}
         <motion.span

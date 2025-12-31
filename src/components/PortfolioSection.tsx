@@ -7,6 +7,8 @@ const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [canHover, setCanHover] = useState(true);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -22,6 +24,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
   const parallaxLayer2Y = useSpring(useTransform(mouseY, [-0.5, 0.5], [-40, 40]), { stiffness: 400, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(canHover && !isMobile)) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -39,7 +42,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
     <motion.div
       style={{ perspective: 1500 }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => (canHover && !isMobile) && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       className="p-1"
     >
@@ -74,15 +77,17 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
           transition={{ duration: 0.3 }}
         />
 
-        {/* Spotlight effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.2) 0%, transparent 50%)`,
-          }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-        />
+        {/* Spotlight effect (desktop only) */}
+        {(canHover && !isMobile) && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.2) 0%, transparent 50%)`,
+            }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
 
         {/* Text with parallax */}
         <motion.span 

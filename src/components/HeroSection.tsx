@@ -14,19 +14,36 @@ const HeroSection = () => {
   // Mouse spotlight effect
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [canHover, setCanHover] = useState(true);
   
   const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 30 });
   const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 30 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      if (!(canHover && !isMobile)) return;
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
 
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkHoverCapability = () => {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setCanHover(mq.matches && !hasTouch);
+    };
+
+    checkMobile();
+    checkHoverCapability();
+    window.addEventListener('resize', checkMobile);
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+    window.matchMedia('(hover: hover) and (pointer: fine)').addEventListener('change', checkHoverCapability);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [mouseX, mouseY, canHover, isMobile]);
   
   const textReveal = {
     hidden: { opacity: 0, y: 60 },
@@ -43,16 +60,18 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero section">
-      {/* Mouse-following spotlight */}
-      <motion.div
-        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-        style={{
-          background: useTransform(
-            [smoothMouseX, smoothMouseY],
-            ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
-          ),
-        }}
-      />
+      {/* Mouse-following spotlight (desktop only) */}
+      {(canHover && !isMobile) && (
+        <motion.div
+          className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+          style={{
+            background: useTransform(
+              [smoothMouseX, smoothMouseY],
+              ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
+            ),
+          }}
+        />
+      )}
       
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-transparent pointer-events-none" />
