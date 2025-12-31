@@ -57,24 +57,15 @@ const tools = [
 const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [canHover, setCanHover] = useState(true);
   const prefersReducedMotion = useReducedMotion();
-  const hoverEnabled = canHover && !isMobile; // Disable interactivity for touch/coarse pointers and mobile width
+  const hoverEnabled = !isMobile; // Disable interactivity only on mobile
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    const checkHoverCapability = () => {
-      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
-      // Treat touch or coarse pointers as no-hover
-      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      setCanHover(mq.matches && !hasTouch);
-    };
     checkMobile();
-    checkHoverCapability();
     window.addEventListener('resize', checkMobile);
-    window.matchMedia('(hover: hover) and (pointer: fine)').addEventListener('change', checkHoverCapability);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -96,7 +87,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
   const parallaxLayer3Y = useSpring(useTransform(mouseY, [-0.5, 0.5], [-60, 60]), { stiffness: 400, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!hoverEnabled) return;
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;

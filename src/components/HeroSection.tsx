@@ -19,6 +19,11 @@ const HeroSection = () => {
   
   const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 30 });
   const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 30 });
+  // Compute spotlight background unconditionally (hooks must not be conditional)
+  const spotlightBg = useTransform(
+    [smoothMouseX, smoothMouseY],
+    ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -64,12 +69,7 @@ const HeroSection = () => {
       {(canHover && !isMobile) && (
         <motion.div
           className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-          style={{
-            background: useTransform(
-              [smoothMouseX, smoothMouseY],
-              ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
-            ),
-          }}
+          style={{ background: spotlightBg }}
         />
       )}
       

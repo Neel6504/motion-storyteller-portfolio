@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import ClickSoundManager from "./components/ClickSoundManager";
 import { SoundProvider } from "./contexts/SoundContext";
 import Loader from "./components/Loader";
+import MouseSpotlight from "./components/MouseSpotlight";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => {
           <Loader onLoadingComplete={() => setIsLoading(false)} />
           {!isLoading && (
             <>
+              <MouseSpotlight />
               <ClickSoundManager />
               <Toaster />
               <Sonner />
