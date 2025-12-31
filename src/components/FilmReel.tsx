@@ -1,8 +1,10 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const FilmReel = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -12,6 +14,7 @@ const FilmReel = () => {
   const translateZ = useSpring(useTransform(mouseX, [-0.5, 0.5], [-30, 30]), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -20,6 +23,7 @@ const FilmReel = () => {
   };
 
   const handleMouseLeave = () => {
+    if (isMobile) return;
     mouseX.set(0);
     mouseY.set(0);
     setIsHovered(false);
@@ -27,22 +31,22 @@ const FilmReel = () => {
 
   return (
     <motion.div
-      className="relative w-48 h-48 md:w-56 md:h-56 cursor-pointer"
+      className={`relative w-48 h-48 md:w-56 md:h-56 ${isMobile ? '' : 'cursor-pointer'}`}
       style={{ perspective: 1000 }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={isMobile ? undefined : handleMouseMove}
+      onMouseEnter={isMobile ? undefined : () => setIsHovered(true)}
+      onMouseLeave={isMobile ? undefined : handleMouseLeave}
     >
       <motion.div
         className="relative w-full h-full"
         style={{
-          rotateX,
-          rotateY,
-          translateZ,
+          rotateX: isMobile ? 0 : rotateX,
+          rotateY: isMobile ? 0 : rotateY,
+          translateZ: isMobile ? 0 : translateZ,
           transformStyle: 'preserve-3d',
         }}
         animate={{ 
-          rotate: 360,
+          rotate: isMobile ? 0 : 360,
           scale: isHovered ? 1.1 : 1,
         }}
         transition={{ 
