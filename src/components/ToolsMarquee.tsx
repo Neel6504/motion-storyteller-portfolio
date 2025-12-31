@@ -136,15 +136,17 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           transition={{ duration: 0.3 }}
         />
 
-        {/* Spotlight effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-          }}
-          animate={{ opacity: hoverEnabled && isHovered && !prefersReducedMotion ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-        />
+        {/* Spotlight effect (desktop only) */}
+        {hoverEnabled && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
+            }}
+            animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
 
         {/* Main content with subtle parallax */}
         <motion.div 
