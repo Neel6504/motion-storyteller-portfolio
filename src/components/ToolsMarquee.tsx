@@ -10,7 +10,7 @@ const tools = [
     logo: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg',
     color: 'from-purple-600/20 to-purple-900/20',
     hoverColor: 'from-purple-600 to-purple-900',
-    description: 'Motion Graphics & VFX',
+    description: 'Motion Graphics & Visual Effects',
     Icon: Layers,
     skillLevel: 95,
     yearsExp: '3+',

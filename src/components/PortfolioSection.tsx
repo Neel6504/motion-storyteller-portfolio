@@ -409,7 +409,7 @@ const PortfolioSection = () => {
             Selected Work
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            A curated collection of projects showcasing expertise across motion design, VFX, and video production.
+            A curated collection of projects showcasing expertise across motion design, Animation and Generative AI.
           </p>
         </motion.div>
 
