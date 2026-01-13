@@ -186,8 +186,8 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
           <motion.div
             className="absolute inset-[-15px] pointer-events-none rounded-md"
             style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.12), rgba(255, 100, 0, 0.48), transparent 70%)',
-              filter: 'blur(10px)',
+              background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.12), rgba(255, 100, 0, 0.78), transparent 70%)',
+              filter: 'blur(15px)',
               boxShadow: '0 0 20px rgba(255, 140, 0, 0.25)',
             }}
             animate={{
