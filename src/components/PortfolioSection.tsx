@@ -464,7 +464,8 @@ const projects = [
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1768326852/WhatsApp_Image_2026-01-08_at_21.35.50_hsp29h.jpg',
     videoUrl: 'https://youtube.com/embed/0sZEzzBKcms',
     tools: ['Premiere Pro'],
-    description: 'The Rehearsal is a psychological thriller that explores the fragile boundary between performance and reality. As an actor immerses herself deeply into a role during rehearsal, the lines between acting, memory, and truth begin to blur, leading to an unsettling confrontation with her own mind. ',
+    description: 'The Rehearsal is a psychological thriller that explores the fragile boundary between performance and reality. As an actor immerses herself deeply into a role during rehearsal, the lines between acting, memory, and truth begin to blur, leading to an unsettling confrontation with her own mind.',
+    achievement: 'Successfully secured 4th position in shortfilm making competition among 18 other shortfilms.',
   },
 
 ];
@@ -647,6 +648,11 @@ const PortfolioSection = () => {
                         <p className="text-sm text-muted-foreground">
                           {selectedProject.description}
                         </p>
+                        {(selectedProject as any).achievement && (
+                          <p className="text-sm font-black mt-3" style={{ fontWeight: 900 }}>
+                            {(selectedProject as any).achievement}
+                          </p>
+                        )}
                       </div>
                     )}
                   </div>
