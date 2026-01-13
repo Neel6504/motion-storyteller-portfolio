@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ,'Shortfilm'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -11,6 +11,8 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
   const [canHover, setCanHover] = useState(true);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  
+  const isShortfilm = category === 'Shortfilm';
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { stiffness: 300, damping: 30 });
@@ -57,13 +59,20 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
         role="tab"
         aria-selected={isActive}
         animate={{
-          scale: isHovered ? 1.08 : 1,
+          scale: isShortfilm 
+            ? [1, 1.08, 1, 1.08, 1]
+            : isHovered ? 1.08 : 1,
           boxShadow: isHovered 
             ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(239, 68, 68, 0.3)'
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`relative text-xs md:text-sm px-4 py-2 rounded-md font-medium overflow-hidden ${
+        transition={isShortfilm 
+          ? { duration: 3, repeat: Infinity, ease: 'easeInOut' }
+          : { type: 'spring', stiffness: 300, damping: 30 }
+        }
+        className={`relative text-xs md:text-sm px-4 py-2 font-medium rounded-md ${
+          isShortfilm ? 'overflow-visible' : 'overflow-hidden'
+        } ${
           isActive
             ? 'bg-primary text-primary-foreground'
             : 'bg-card border border-border hover:border-primary/50'
@@ -96,6 +105,14 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
             translateZ: 30,
             x: parallaxLayer1X,
             y: parallaxLayer1Y,
+          }}
+          animate={isShortfilm ? {
+            color: ['#ffffff', '#ff8c00', '#ffffff', '#ff8c00', '#ffffff'],
+          } : {}}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
           }}
         >
           {category}
@@ -163,6 +180,61 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         />
+
+        {/* Orange heartbeat glow for Shortfilm */}
+        {isShortfilm && (
+          <motion.div
+            className="absolute inset-[-15px] pointer-events-none rounded-md"
+            style={{
+              background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.12), rgba(255, 100, 0, 0.48), transparent 70%)',
+              filter: 'blur(10px)',
+              boxShadow: '0 0 20px rgba(255, 140, 0, 0.25)',
+            }}
+            animate={{
+              scale: [1, 1.4, 1, 1.4, 1],
+              opacity: [0.4, 0.6, 0.4, 0.6, 0.4],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        )}
+
+        {/* Orange particles around Shortfilm */}
+        {isShortfilm && [...Array(16)].map((_, i) => {
+          const angle = (i * 22.5) * (Math.PI / 180);
+          const distance = 40 + Math.random() * 30;
+          const lifetime = 1.5 + Math.random() * 1;
+          
+          return (
+            <motion.div
+              key={`orange-particle-${i}`}
+              className="absolute rounded-full pointer-events-none"
+              style={{
+                width: 2 + Math.random() * 2,
+                height: 2 + Math.random() * 2,
+                left: '50%',
+                top: '50%',
+                background: 'radial-gradient(circle, rgba(255, 140, 0, 0.9), rgba(255, 100, 0, 0.5))',
+                boxShadow: '0 0 6px rgba(255, 140, 0, 0.7)',
+              }}
+              animate={{
+                x: [0, distance * Math.cos(angle)],
+                y: [0, distance * Math.sin(angle)],
+                scale: [0.8, 1.2, 0],
+                opacity: [0.8, 0.6, 0],
+              }}
+              transition={{
+                duration: lifetime,
+                repeat: Infinity,
+                delay: i * 0.15,
+                ease: 'easeInOut',
+              }}
+            />
+          );
+        })}
       </motion.button>
     </motion.div>
   );
@@ -385,6 +457,16 @@ const projects = [
     videoUrl: 'https://youtube.com/embed/-tDuOCQdHYo',
     tools: ['Capcut'],
   },
+  {
+    id: 27,
+    title: 'The Rehearsal',
+    category: 'Shortfilm',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1768326852/WhatsApp_Image_2026-01-08_at_21.35.50_hsp29h.jpg',
+    videoUrl: 'https://youtube.com/embed/0sZEzzBKcms',
+    tools: ['Premiere Pro'],
+    description: 'The Rehearsal is a psychological thriller that explores the fragile boundary between performance and reality. As an actor immerses herself deeply into a role during rehearsal, the lines between acting, memory, and truth begin to blur, leading to an unsettling confrontation with her own mind. ',
+  },
+
 ];
 
 const PortfolioSection = () => {
@@ -558,6 +640,15 @@ const PortfolioSection = () => {
                         ))}
                       </div>
                     </div>
+                    
+                    {selectedProject.description && (
+                      <div>
+                        <p className="text-sm font-medium text-foreground mb-2">Description</p>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedProject.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
