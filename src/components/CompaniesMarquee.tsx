@@ -5,12 +5,14 @@ import { Sparkles } from 'lucide-react';
 const companies = [
   { name: 'VOSAP', logo: 'Vosap' },
   { name: 'Shilin Media', logo: 'AB' },
-  { name: 'Metaloop', logo: 'MT' },
+  { name: 'Metaloop Marketing', logo: 'MT' },
   { name: 'Lotus Herbals', logo: 'AP' },
   { name: 'Flipkart', logo: 'GO' },
   { name: 'Meta Ads', logo: 'AZ' },
-  { name: 'Yuzi', logo: 'MS' },
+  { name: 'Yuzi Media', logo: 'MS' },
   { name: 'Dizinfinity', logo: 'MS' },
+  { name: 'Atha', logo: 'MS' },
+  { name: 'Citytadka', logo: 'MS' },
 ];
 
 const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: number }) => {

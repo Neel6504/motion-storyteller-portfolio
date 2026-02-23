@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Linkedin, Instagram } from 'lucide-react';
+import { Send, Mail, MapPin, Linkedin, Instagram, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -207,6 +207,17 @@ const ContactSection = () => {
                   <p className="font-medium text-foreground mb-1">Email</p>
                   <a href="mailto:work.neellathiya@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                     work.neellathiya@gmail.com
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground mb-1">Phone</p>
+                  <a href="tel:+919512057266" className="text-muted-foreground hover:text-primary transition-colors">
+                    +91 95120 57266
                   </a>
                 </div>
               </div>
