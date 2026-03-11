@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ,'Shortfilm'];
+const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ,'Shortfilm', 'Big Celebs', 'Promotional Reels', 'Creative Typography'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -12,7 +12,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const isShortfilm = category === 'Shortfilm';
+  const isShortfilm = category === 'Big Celebs';
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { stiffness: 300, damping: 30 });
@@ -108,7 +108,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
           }}
           animate={isShortfilm ? {
             color: ['#ffffff', '#ff8c00', '#ffffff', '#ff8c00', '#ffffff'],
-          } : {}}
+          } : category === 'Shortfilm' ? { color: '#ffffff' } : {}}
           transition={{
             duration: 3,
             repeat: Infinity,
@@ -466,6 +466,84 @@ const projects = [
     tools: ['Premiere Pro'],
     description: 'The Rehearsal is a psychological thriller that explores the fragile boundary between performance and reality. As an actor immerses herself deeply into a role during rehearsal, the lines between acting, memory, and truth begin to blur, leading to an unsettling confrontation with her own mind.',
     achievement: 'Successfully secured 4th position in shortfilm making competition among 18 other shortfilms.',
+  },
+  {
+    id: 28,
+    title: 'Paneri - A Fashion Story',
+    category: 'Promotional Reels',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258525/paneri_-_frame_at_0m21s_mm0shq.jpg',
+    videoUrl: 'https://youtube.com/embed/afi95FpRuDY?feature=share',
+    tools: ['Premiere Pro'],
+  },
+  {
+    id: 29,
+    title: 'Mokari',
+    category: 'Promotional Reels',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258696/mokari_-_frame_at_0m3s_k6emwd.jpg',
+    videoUrl: 'https://youtube.com/embed/fKGlQ5jBs3Q?feature=share',
+    tools: ['After Effects', 'Premiere Pro'],
+  },
+  {
+    id: 30,
+    title: 'Desaii Global Group',
+    category: 'Motion Graphics',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258823/desaii_group_1_-_frame_at_0m24s_toexgh.jpg',
+    videoUrl: 'https://youtube.com/embed/5JFPK0ZvKAY?feature=share',
+    tools: ['After Effects'],
+  },
+
+  {
+    id: 31,
+    title: 'Rajvi Makeup',
+    category: 'Promotional Reels',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258989/rajvi_1_-_frame_at_0m54s_dozdto.jpg',
+    videoUrl: 'https://youtube.com/embed/zA8vER44rNE?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 32,
+    title: 'Purva Pandey',
+    category: 'Creative Typography',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259156/Sequence_01_-_frame_at_0m11s_nz1igk.jpg',
+    videoUrl: 'https://youtube.com/embed/Zcl8xRxZrTw?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 33,
+    title: 'Atha for All',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259496/mixed_start_-_frame_at_0m0s_xmi5sf.jpg',
+    videoUrl: 'https://youtube.com/embed/2ImsdMj-kP0?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 34,
+    title: 'Atha for All',
+    category: 'Cafe works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259693/atha_2_-_frame_at_0m4s_vj1oub.jpg',
+    videoUrl: 'https://youtube.com/embed/1_BKyeBLRjQ?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 35,
+    title: 'Kooffee',
+    category: 'Cafe works',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259778/kooffee_-_frame_at_0m0s_qczun6.jpg',
+    videoUrl: 'https://youtube.com/embed/1_BKyeBLRjQ?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 36,
+    title: 'Jal Tarang Waterpark',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259957/jal_tarang_-_frame_at_0m4s_lc6rz1.jpg',
+    videoUrl: 'https://youtube.com/embed/o_TK2dBhHUE?feature=share',
+    tools: ['Premiere Pro'],
   },
 
 ];
