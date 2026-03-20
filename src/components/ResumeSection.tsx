@@ -6,19 +6,22 @@ import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 const ResumeSection = () => {
   const magneticRefView = useMagneticEffect({ strength: 0.2, speed: 0.15 });
   const magneticRefDownload = useMagneticEffect({ strength: 0.2, speed: 0.15 });
+  const magneticRefCvView = useMagneticEffect({ strength: 0.2, speed: 0.15 });
+  const magneticRefCvDownload = useMagneticEffect({ strength: 0.2, speed: 0.15 });
   const resumePdfUrl = '/resume.pdf'; // Place your resume.pdf in the public folder
+  const cvPdfUrl = '/cv.pdf'; // Place your cv.pdf in the public folder
 
-  const handleDownload = () => {
+  const handleDownload = (url: string, fileName: string) => {
     const link = document.createElement('a');
-    link.href = resumePdfUrl;
-    link.download = 'Resume.pdf';
+    link.href = url;
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  const handleViewPortfolio = () => {
-    window.open(resumePdfUrl, '_blank');
+  const handleViewDocument = (url: string) => {
+    window.open(url, '_blank');
   };
 
   return (
@@ -65,7 +68,7 @@ const ResumeSection = () => {
               <div ref={magneticRefView as any}>
                 <Button
                   size="sm"
-                  onClick={handleViewPortfolio}
+                  onClick={() => handleViewDocument(resumePdfUrl)}
                   className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
                 >
                   <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
@@ -76,7 +79,37 @@ const ResumeSection = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={handleDownload}
+                  onClick={() => handleDownload(resumePdfUrl, 'Resume.pdf')}
+                  className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
+                >
+                  <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  <span>Download</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 p-3 md:p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 mt-3 md:mt-4">
+            <div className="flex items-center gap-2 justify-center sm:justify-start">
+              <FileText className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+              <span className="font-medium text-sm md:text-base">CV.pdf</span>
+            </div>
+            <div className="flex gap-2 justify-center sm:justify-end">
+              <div ref={magneticRefCvView as any}>
+                <Button
+                  size="sm"
+                  onClick={() => handleViewDocument(cvPdfUrl)}
+                  className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  <span>View CV</span>
+                </Button>
+              </div>
+              <div ref={magneticRefCvDownload as any}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleDownload(cvPdfUrl, 'CV.pdf')}
                   className="gap-1.5 md:gap-2 flex-1 sm:flex-initial text-xs md:text-sm"
                 >
                   <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
