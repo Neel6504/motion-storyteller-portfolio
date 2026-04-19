@@ -61,7 +61,7 @@ const AboutSection = () => {
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-6 mt-8 pt-8 border-t border-border/50 max-w-md mx-auto">
               {[
-                { icon: Briefcase, label: 'Projects Completed', value: '150+' },
+                { icon: Briefcase, label: 'Projects Completed', value: '200+' },
                 { icon: GraduationCap, label: 'Years Experience', value: '3+' },
               ].map((stat, index) => (
                 <motion.div 

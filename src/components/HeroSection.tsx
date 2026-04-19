@@ -206,7 +206,7 @@ const HeroSection = () => {
               className="flex items-center justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border/50"
             >
               {[
-                { value: '150+', label: 'Projects' },
+                { value: '200+', label: 'Projects' },
                 { value: '3+', label: 'Years' },
                 { value: '20+', label: 'Clients' },
               ].map((stat) => (
@@ -232,50 +232,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.a
-          href="#work"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
-          className="absolute bottom-18 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 group cursor-pointer"
-          aria-label="Scroll to work section"
-        >
-          {/* Animated mouse icon */}
-          <motion.div 
-            className="relative w-6 h-10 border-2 border-primary/40 rounded-full flex items-start justify-center pt-2 overflow-hidden"
-            whileHover={{ borderColor: 'hsl(var(--primary))' }}
-          >
-            {/* Scroll wheel */}
-            <motion.div
-              className="w-1 h-2 bg-primary rounded-full"
-              animate={{ 
-                y: [0, 12, 0],
-                opacity: [1, 0.3, 1]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            
-            {/* Glow effect */}
-            <motion.div
-              className="absolute inset-0 bg-primary/10 blur-md"
-              animate={{
-                opacity: [0.2, 0.5, 0.2]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
-          
-          <motion.span 
-            className="text-xs uppercase tracking-[0.3em] text-muted-foreground group-hover:text-primary transition-colors font-medium"
-          >
-            Scroll
-          </motion.span>
-        </motion.a>
       </div>
     </section>
   );

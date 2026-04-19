@@ -40,10 +40,10 @@ const ResumeSection = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-primary/20 bg-primary/5 mb-4 md:mb-6">
             <FileText className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary" />
-            <span className="text-xs md:text-sm font-medium text-primary">Professional Resume</span>
+            <span className="text-xs md:text-sm font-medium text-primary">Professional Resume & CV</span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent px-4">
-            View My Resume
+            View My Resume & CV
           </h2>
           <p className="text-muted-foreground text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-4">
             Explore my professional experience, skills, and qualifications

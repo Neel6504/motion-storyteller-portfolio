@@ -26,7 +26,7 @@ const tools = [
     Icon: Play,
     skillLevel: 90,
     yearsExp: '3+',
-    projectCount: 30,
+    projectCount: 80,
   },
   { 
     name: 'CapCut', 
@@ -43,7 +43,7 @@ const tools = [
   { 
     name: 'Canva', 
     icon: 'Ca',
-    logo: 'https://static.canva.com/web/images/12487a1e0770d29351bd4ce4f87ec8fe.svg',
+    logo: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776630664/icons8-canva-48_kmc0yq.png',
     color: 'from-cyan-600/20 to-teal-900/20',
     hoverColor: 'from-cyan-600 to-teal-900',
     description: 'Graphic Design & Templates',

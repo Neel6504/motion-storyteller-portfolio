@@ -3,11 +3,11 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'Logo Reveal', 'Meta Ads', 'Cafe works', 'Storytelling Testimonial' , 'Fashion', 'Generative AI Video', 'Festival', 'Jewellery', 'Wedding', 'More After Effects Works' ,'Shortfilm', 'Big Celebs', 'Promotional Reels', 'Creative Typography'];
+const categories = ['3D Animation', 'Motion Graphics',  'UGC', 'Wedding & events',  'Creative Typography', 'Logo Reveal', 'Meta Ads', 'Cafe works' , 'Fashion', 'Generative AI Video', 'Jewellery' ,'Shortfilm', 'Big Celebs', 'More After Effects Works'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);  
   const [canHover, setCanHover] = useState(true);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -315,10 +315,10 @@ const projects = [
   },
   {
     id: 10,
-    title: 'Toast',
+    title: 'HOY',
     category: 'Cafe works',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024095/toastt_-_Trim_-_frame_at_0m1s_fzjvj9.jpg',
-    videoUrl: 'https://youtube.com/embed/gnjneSot6_o?feature=share',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573852/image_x4orbt.jpg',
+    videoUrl: 'https://youtube.com/embed/NVT_uIyW_hg?feature=share',
     tools: ['Premiere Pro'],
   },
   {
@@ -332,7 +332,7 @@ const projects = [
   {
     id: 12,
     title: 'Unhealthy Diet',
-    category: 'Storytelling Testimonial',
+    category: 'UGC',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024675/reel49_-_frame_at_0m15s_icrqnu.jpg',
     videoUrl: 'https://youtube.com/embed/y4hAXmbsnGI?feature=share',
     tools: ['After Effects'],
@@ -340,7 +340,7 @@ const projects = [
   {
     id: 13,
     title: 'Marketing School',
-    category: 'Storytelling Testimonial',
+    category: 'UGC',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026125/Typography_-_frame_at_0m19s_lir12k.jpg',
     videoUrl: 'https://youtube.com/embed/FEnBNLQoIa0?feature=share',
     tools: ['After Effects'],
@@ -379,16 +379,16 @@ const projects = [
   },
   {
     id: 18,
-    title: 'Navratri 2025',
-    category: 'Festival',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767028247/intro_-_frame_at_0m5s_dnxagh.jpg',
-    videoUrl: 'https://youtube.com/embed/KiEyx2CLBE4?feature=share',
+    title: 'Meet Jain',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573087/image_ez5uja.jpg',
+    videoUrl: 'https://youtube.com/embed/-CErKbpmwc8',
     tools: ['After Effects'],
   },
   {
     id: 19,
     title: 'Gastro',
-    category: 'Storytelling Testimonial',
+    category: 'UGC',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767029010/gastro_1_-_frame_at_0m57s_xllywv.jpg',
     videoUrl: 'https://youtube.com/embed/ITzJr_9zZKI?feature=share',
     tools: ['After Effects'],
@@ -452,7 +452,7 @@ const projects = [
   {
     id: 27,
     title: 'Wedding Film',
-    category: 'Wedding',
+    category: 'Wedding & events',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767155754/Wedding_-_frame_at_0m40s_lqseqa.jpg',
     videoUrl: 'https://youtube.com/embed/-tDuOCQdHYo',
     tools: ['Capcut'],
@@ -470,7 +470,7 @@ const projects = [
   {
     id: 28,
     title: 'Paneri - A Fashion Story',
-    category: 'Promotional Reels',
+    category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258525/paneri_-_frame_at_0m21s_mm0shq.jpg',
     videoUrl: 'https://youtube.com/embed/afi95FpRuDY?feature=share',
     tools: ['Premiere Pro'],
@@ -478,7 +478,7 @@ const projects = [
   {
     id: 29,
     title: 'Mokari',
-    category: 'Promotional Reels',
+    category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258696/mokari_-_frame_at_0m3s_k6emwd.jpg',
     videoUrl: 'https://youtube.com/embed/fKGlQ5jBs3Q?feature=share',
     tools: ['After Effects', 'Premiere Pro'],
@@ -495,7 +495,7 @@ const projects = [
   {
     id: 31,
     title: 'Rajvi Makeup',
-    category: 'Promotional Reels',
+    category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258989/rajvi_1_-_frame_at_0m54s_dozdto.jpg',
     videoUrl: 'https://youtube.com/embed/zA8vER44rNE?feature=share',
     tools: ['Premiere Pro'],
@@ -545,6 +545,97 @@ const projects = [
     videoUrl: 'https://youtube.com/embed/o_TK2dBhHUE?feature=share',
     tools: ['Premiere Pro'],
   },
+
+  {
+    id: 37,
+    title: 'PIT PUB, CAN',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775572870/image_q8tosm.jpg',
+    videoUrl: 'https://youtube.com/embed/L3JOQW7PgNA?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 38,
+    title: 'Jal Tarang Waterpark',
+    category: 'UGC',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573397/image_hpjovm.jpg',
+    videoUrl: 'https://youtube.com/embed/Gci3vOmLtkU?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 39,
+    title: 'Radhika Bhardwaj',
+    category: 'Creative Typography',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573575/image_naubhn.jpg',
+    videoUrl: 'https://youtube.com/embed/woFo-l-hIH4?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 40,
+    title: 'Inspire DJ, CAN',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776267218/image_f56akd.jpg',
+    videoUrl: 'https://youtube.com/embed/xgTiKfPqPJo?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 41,
+    title: 'RJ Hardik',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776267328/image_syb83x.jpg',
+    videoUrl: 'https://youtube.com/embed/idE11TALC7Q?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 42,
+    title: 'CA',
+    category: 'UGC',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627383/image_reregn.jpg',
+    videoUrl: 'https://youtube.com/shorts/zs1DRfsP_Ic?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 42,
+    title: 'CA',
+    category: 'Motion Graphics',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627343/image_c3p9nz.jpg',
+    videoUrl: 'https://youtube.com/embed/zs1DRfsP_Ic?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 42,
+    title: 'Dimple Biscuitwala',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573308/image_xzisu4.jpg',
+    videoUrl: 'https://youtube.com/embed/GFzf6H3VTlY',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 43,
+    title: 'Dimple Biscuitwala',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776266955/image_st25zq.jpg',
+    videoUrl: 'https://youtube.com/embed/jFX4MIFvKlY',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 44,
+    title: 'Oviyana Jewellery',
+    category: 'Generative AI Video',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776629885/image_oj2kwo.jpg',
+    videoUrl: 'https://youtube.com/embed/E6NGXLU9JlQ?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
 
 ];
 

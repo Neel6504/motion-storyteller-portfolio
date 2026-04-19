@@ -7,12 +7,12 @@ const companies = [
   { name: 'Shilin Media', logo: 'AB' },
   { name: 'Metaloop Marketing', logo: 'MT' },
   { name: 'Lotus Herbals', logo: 'AP' },
-  { name: 'Flipkart', logo: 'GO' },
   { name: 'Meta Ads', logo: 'AZ' },
   { name: 'Yuzi Media', logo: 'MS' },
   { name: 'Dizinfinity', logo: 'MS' },
-  { name: 'Atha', logo: 'MS' },
   { name: 'Citytadka', logo: 'MS' },
+  { name: 'Desaii Global Group', logo: 'MS' },
+  { name: 'SocialScribbles', logo: 'MS' },
 ];
 
 const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: number }) => {
