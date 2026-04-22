@@ -323,7 +323,7 @@ const projects = [
   },
   {
     id: 11,
-    title: 'Mojito',
+    title: 'Waffle World',
     category: 'Cafe works',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767024403/cafe_reel_-_frame_at_0m7s_fbz5b9.jpg',
     videoUrl: 'https://youtube.com/embed/z1P45tJzriw?feature=share',
@@ -557,7 +557,7 @@ const projects = [
 
   {
     id: 38,
-    title: 'Jal Tarang Waterpark',
+    title: 'CA Hiren, Surat',
     category: 'UGC',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573397/image_hpjovm.jpg',
     videoUrl: 'https://youtube.com/embed/Gci3vOmLtkU?feature=share',
@@ -593,7 +593,7 @@ const projects = [
 
   {
     id: 42,
-    title: 'CA',
+    title: 'CA Hiren, Surat',
     category: 'UGC',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627383/image_reregn.jpg',
     videoUrl: 'https://youtube.com/shorts/zs1DRfsP_Ic?feature=share',
@@ -602,7 +602,7 @@ const projects = [
 
   {
     id: 42,
-    title: 'CA',
+    title: 'Desaii Global Group',
     category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627343/image_c3p9nz.jpg',
     videoUrl: 'https://youtube.com/embed/zs1DRfsP_Ic?feature=share',
@@ -620,7 +620,7 @@ const projects = [
 
   {
     id: 43,
-    title: 'Dimple Biscuitwala',
+    title: 'Soch, CAN',
     category: 'Wedding & events',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776266955/image_st25zq.jpg',
     videoUrl: 'https://youtube.com/embed/jFX4MIFvKlY',
