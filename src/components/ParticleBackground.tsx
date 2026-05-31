@@ -59,7 +59,7 @@ const ParticleBackground = () => {
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 3 + 1,
         opacity: Math.random() * 0.4 + 0.2,
-        hue: Math.random() * 20,
+        hue: 250 + Math.random() * 50,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.02,
       });
@@ -90,13 +90,13 @@ const ParticleBackground = () => {
           ctx.lineTo(particle.size, particle.size);
           ctx.lineTo(-particle.size, particle.size);
           ctx.closePath();
-          ctx.fillStyle = `hsla(${particle.hue}, 98%, 45%, ${particle.opacity})`;
+          ctx.fillStyle = `hsla(${particle.hue}, 100%, 65%, ${particle.opacity})`;
           ctx.fill();
         } else {
           // Circles with gradient
           const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, particle.size);
-          gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 55%, ${particle.opacity})`);
-          gradient.addColorStop(1, `hsla(${particle.hue}, 98%, 35%, 0)`);
+          gradient.addColorStop(0, `hsla(${particle.hue}, 100%, 70%, ${particle.opacity})`);
+          gradient.addColorStop(1, `hsla(${particle.hue}, 100%, 50%, 0)`);
           ctx.beginPath();
           ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
           ctx.fillStyle = gradient;
@@ -116,8 +116,8 @@ const ParticleBackground = () => {
 
             if (distance < 200) {
               const gradient = ctx.createLinearGradient(particle.x, particle.y, other.x, other.y);
-              gradient.addColorStop(0, `hsla(${particle.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
-              gradient.addColorStop(1, `hsla(${other.hue}, 98%, 45%, ${0.1 * (1 - distance / 200)})`);
+              gradient.addColorStop(0, `hsla(${particle.hue}, 100%, 65%, ${0.12 * (1 - distance / 200)})`);
+              gradient.addColorStop(1, `hsla(${other.hue}, 100%, 65%, ${0.12 * (1 - distance / 200)})`);
               ctx.beginPath();
               ctx.moveTo(particle.x, particle.y);
               ctx.lineTo(other.x, other.y);

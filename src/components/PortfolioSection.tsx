@@ -63,7 +63,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
             ? [1, 1.08, 1, 1.08, 1]
             : isHovered ? 1.08 : 1,
           boxShadow: isHovered 
-            ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(239, 68, 68, 0.3)'
+            ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(82, 39, 255, 0.35)'
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
         transition={isShortfilm 
@@ -91,7 +91,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
           <motion.div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.2) 0%, transparent 50%)`,
+              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(82,39,255,0.22) 0%, transparent 50%)`,
             }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.2 }}

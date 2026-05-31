@@ -10,7 +10,7 @@ const MouseSpotlight = () => {
 
   // Compute background unconditionally (avoid conditional hooks)
   const spotlightBg = useTransform([smoothX, smoothY], ([x, y]) =>
-    `radial-gradient(120px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.15) 0%, transparent 80%)`
+    `radial-gradient(120px circle at ${x}px ${y}px, rgba(82, 39, 255, 0.18) 0%, transparent 80%)`
   );
 
   const [isMobile, setIsMobile] = useState(false);

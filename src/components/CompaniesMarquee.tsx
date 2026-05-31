@@ -23,9 +23,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), { stiffness: 300, damping: 30 });
-  const translateZ = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), { stiffness: 300, damping: 30 });
+  // 3D effects removed as requested
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!(canHover && !isMobile)) return;
@@ -44,24 +42,17 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
 
   return (
     <motion.div
-      style={{ perspective: 1000 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => (canHover && !isMobile) && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="flex-shrink-0 group"
+      className="w-full group"
     >
       <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          translateZ,
-          transformStyle: 'preserve-3d',
-        }}
         animate={{
           scale: isHovered ? 1.05 : 1,
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative flex items-center px-6 md:px-8 py-4 bg-card/30 border border-border/30 rounded-lg hover:border-primary/50 hover:bg-card/50 transition-colors duration-300 overflow-hidden"
+        className="relative flex items-center justify-center w-full min-h-[80px] px-4 md:px-8 py-4 bg-card/30 border border-border/30 rounded-lg hover:border-primary/50 hover:bg-card/50 transition-colors duration-300 overflow-hidden"
       >
         {/* Gradient overlay */}
         <motion.div
@@ -75,7 +66,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
           <motion.div
             className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
             style={{
-              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(239,68,68,0.15) 0%, transparent 50%)`,
+              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(82,39,255,0.18) 0%, transparent 50%)`,
             }}
             animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
             transition={{ duration: 0.2 }}
@@ -85,15 +76,12 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
         {/* Company name */}
         <motion.span
           className="text-foreground/80 group-hover:text-foreground font-medium text-sm md:text-base whitespace-nowrap transition-colors relative z-10"
-          style={{
-            translateZ: 20,
-          }}
         >
           {company.name}
         </motion.span>
 
         {/* Sparkle icon on hover */}
-          <motion.div
+        <motion.div
           className="absolute -top-2 -right-2 z-20"
           initial={{ scale: 0, rotate: -180 }}
           animate={{
@@ -116,7 +104,7 @@ const CompanyCard = ({ company, index }: { company: typeof companies[0]; index: 
         {isHovered && !prefersReducedMotion && [...Array(8)].map((_, i) => {
           const angle = (i * 45) * (Math.PI / 180);
           const distance = 40 + Math.random() * 20;
-          
+
           return (
             <motion.div
               key={i}
@@ -171,22 +159,12 @@ const CompaniesMarquee = () => {
         </motion.div>
       </div>
 
-      {/* Marquee */}
-      <div className="relative">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-background to-transparent z-10" />
-
-        <div className="flex overflow-hidden">
-          <motion.div
-            className="flex gap-4 md:gap-6"
-            animate={useReducedMotion() ? undefined : { x: ['0%', '-50%'] }}
-            transition={useReducedMotion() ? undefined : { duration: 60, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
-          >
-            {[...companies, ...companies, ...companies, ...companies].map((company, index) => (
-              <CompanyCard key={`${company.name}-${index}`} company={company} index={index} />
-            ))}
-          </motion.div>
+      {/* Grid Layout spanning full width */}
+      <div className="w-full px-4 md:px-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 w-full">
+          {companies.map((company, index) => (
+            <CompanyCard key={`${company.name}-${index}`} company={company} index={index} />
+          ))}
         </div>
       </div>
     </section>

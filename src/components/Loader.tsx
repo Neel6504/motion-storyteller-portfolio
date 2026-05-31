@@ -49,9 +49,9 @@ const Loader = ({ onLoadingComplete }: { onLoadingComplete: () => void }) => {
                 className="font-display font-bold text-6xl md:text-8xl text-foreground"
                 animate={{
                   filter: [
-                    'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
-                    'drop-shadow(0 0 20px rgba(239, 68, 68, 0.6))',
-                    'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
+                    'drop-shadow(0 0 0px rgba(82, 39, 255, 0))',
+                    'drop-shadow(0 0 20px rgba(82, 39, 255, 0.7))',
+                    'drop-shadow(0 0 0px rgba(82, 39, 255, 0))',
                   ],
                 }}
                 transition={{

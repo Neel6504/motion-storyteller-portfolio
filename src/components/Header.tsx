@@ -75,11 +75,11 @@ const Header = () => {
             scale: isLogoAnimating ? [1, 1.15, 1] : 1,
             filter: isLogoAnimating 
               ? [
-                  'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
-                  'drop-shadow(0 0 20px rgba(239, 68, 68, 0.8)) drop-shadow(0 0 40px rgba(239, 68, 68, 0.6))',
-                  'drop-shadow(0 0 0px rgba(239, 68, 68, 0))'
+                  'drop-shadow(0 0 0px rgba(82, 39, 255, 0))',
+                  'drop-shadow(0 0 20px rgba(82, 39, 255, 0.9)) drop-shadow(0 0 40px rgba(255, 159, 252, 0.6))',
+                  'drop-shadow(0 0 0px rgba(82, 39, 255, 0))'
                 ]
-              : 'drop-shadow(0 0 0px rgba(239, 68, 68, 0))',
+              : 'drop-shadow(0 0 0px rgba(82, 39, 255, 0))',
           }}
           transition={{
             scale: {

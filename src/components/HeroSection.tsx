@@ -2,9 +2,10 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import FilmReel from './FilmReel';
 import { Button } from '@/components/ui/button';
 import CountUp from './CountUp';
-import { ArrowDown, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useMagneticEffect } from '@/hooks/useMagneticEffect';
+import LiquidEther from './LiquidEther';
 
 const HeroSection = () => {
   const [isNameHovered, setIsNameHovered] = useState(false);
@@ -22,7 +23,7 @@ const HeroSection = () => {
   // Compute spotlight background unconditionally (hooks must not be conditional)
   const spotlightBg = useTransform(
     [smoothMouseX, smoothMouseY],
-    ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(239, 68, 68, 0.20), transparent 70%)`
+    ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(82, 39, 255, 0.22), transparent 70%)`
   );
 
   useEffect(() => {
@@ -65,6 +66,22 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero section">
+      {/* LiquidEther fluid simulation background */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <LiquidEther
+          colors={['#5227FF', '#FF9FFC', '#B497CF', '#5227FF']}
+          mouseForce={20}
+          cursorSize={120}
+          resolution={0.5}
+          autoDemo={true}
+          autoSpeed={0.3}
+          autoIntensity={2.5}
+          autoResumeDelay={2000}
+          autoRampDuration={1.2}
+          takeoverDuration={0.3}
+          style={{ width: '100%', height: '100%', opacity: 0.55 }}
+        />
+      </div>
       {/* Mouse-following spotlight (desktop only) */}
       {(canHover && !isMobile) && (
         <motion.div
@@ -121,9 +138,9 @@ const HeroSection = () => {
                 onMouseLeave={() => setIsNameHovered(false)}
                 animate={{
                   scale: isNameHovered ? 1.1 : 1,
-                  color: isNameHovered ? 'rgb(239, 68, 68)' : 'rgb(255, 255, 255)',
+                  color: isNameHovered ? 'rgb(180, 151, 207)' : 'rgb(255, 255, 255)',
                   textShadow: isNameHovered 
-                    ? '0 0 20px rgba(239, 68, 68, 0.8), 0 0 40px rgba(239, 68, 68, 0.5), 0 0 60px rgba(239, 68, 68, 0.3)' 
+                    ? '0 0 20px rgba(82, 39, 255, 0.9), 0 0 40px rgba(255, 159, 252, 0.6), 0 0 60px rgba(82, 39, 255, 0.4)' 
                     : '0 0 0px rgba(0, 0, 0, 0)',
                 }}
                 transition={{ duration: 0.3 }}
