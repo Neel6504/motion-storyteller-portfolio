@@ -14,7 +14,7 @@ const tools = [
     Icon: Layers,
     skillLevel: 95,
     yearsExp: '3+',
-    projectCount: 75,
+    projectCount: 200,
   },
   { 
     name: 'Adobe Premiere Pro', 
@@ -26,7 +26,7 @@ const tools = [
     Icon: Play,
     skillLevel: 90,
     yearsExp: '3+',
-    projectCount: 80,
+    projectCount: 200,
   },
   { 
     name: 'CapCut', 
@@ -38,7 +38,7 @@ const tools = [
     Icon: Scissors,
     skillLevel: 85,
     yearsExp: '2+',
-    projectCount: 30,
+    projectCount: 50,
   },
   { 
     name: 'Canva', 

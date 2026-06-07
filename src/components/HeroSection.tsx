@@ -3,7 +3,7 @@ import FilmReel from './FilmReel';
 import { Button } from '@/components/ui/button';
 import CountUp from './CountUp';
 import { Play } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 import LiquidEther from './LiquidEther';
 
@@ -64,23 +64,27 @@ const HeroSection = () => {
     }),
   };
 
+  const memoizedLiquidEther = useMemo(() => (
+    <LiquidEther
+      colors={['#5227FF', '#FF9FFC', '#B497CF', '#5227FF']}
+      mouseForce={20}
+      cursorSize={120}
+      resolution={0.5}
+      autoDemo={true}
+      autoSpeed={0.3}
+      autoIntensity={2.5}
+      autoResumeDelay={2000}
+      autoRampDuration={1.2}
+      takeoverDuration={0.3}
+      style={{ width: '100%', height: '100%', opacity: 0.55 }}
+    />
+  ), []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero section">
       {/* LiquidEther fluid simulation background */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <LiquidEther
-          colors={['#5227FF', '#FF9FFC', '#B497CF', '#5227FF']}
-          mouseForce={20}
-          cursorSize={120}
-          resolution={0.5}
-          autoDemo={true}
-          autoSpeed={0.3}
-          autoIntensity={2.5}
-          autoResumeDelay={2000}
-          autoRampDuration={1.2}
-          takeoverDuration={0.3}
-          style={{ width: '100%', height: '100%', opacity: 0.55 }}
-        />
+        {memoizedLiquidEther}
       </div>
       {/* Mouse-following spotlight (desktop only) */}
       {(canHover && !isMobile) && (
@@ -223,9 +227,9 @@ const HeroSection = () => {
               className="flex items-center justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border/50"
             >
               {[
-                { value: '200+', label: 'Projects' },
+                { value: '500+', label: 'Reels and YT videos Delivered' },
                 { value: '3+', label: 'Years' },
-                { value: '20+', label: 'Clients' },
+                { value: '40+', label: 'Clients' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="font-display text-2xl md:text-3xl font-bold text-foreground">
