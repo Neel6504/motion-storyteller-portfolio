@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'UGC', 'Wedding & events',  'Creative Typography', 'Logo Reveal', 'Meta Ads', 'Cafe works' , 'Fashion', 'Generative AI Video', 'Jewellery' ,'Shortfilm', 'Big Celebs', 'More After Effects Works'];
+const categories = ['3D Animation', 'Motion Graphics',  'UGC', 'Wedding & events', 'Documentary', 'Creative Typography', 'Logo Reveal', 'Meta Ads', 'Cafe works' , 'Fashion', 'Generative AI Video', 'Jewellery' ,'Shortfilm', 'Big Celebs', 'More After Effects Works'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -347,19 +347,19 @@ const projects = [
   },
   {
     id: 14,
-    title: 'Clothing',
-    category: 'Fashion',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767026979/king_fab_-_frame_at_0m11s_ehe0b1.jpg',
-    videoUrl: 'https://youtube.com/embed/COhZzCdoom0?feature=share',
+    title: 'Ishani Dave',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780866431/image_xw6qfi_dghcbw.jpg',
+    videoUrl: 'https://youtube.com/embed/DQbXiMNCd-Q?feature=share',
     tools: ['Premiere Pro'],
   },
   {
     id: 15,
-    title: 'Female Dress',
-    category: 'Fashion',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027227/Video-423_-_frame_at_0m28s_nc5upc.jpg',
-    videoUrl: 'https://youtube.com/embed/LGWS-82EMO8?feature=share',
-    tools: ['After Effects', 'Illustrator', 'Premiere Pro'],
+    title: 'Filmy',
+    category: 'UGC',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863491/image_uno2aj.jpg',
+    videoUrl: 'https://youtube.com/embed/q3VEYyEaExo?feature=share',
+    tools: ['After Effects'],
   },
   {
     id: 16,
@@ -387,10 +387,10 @@ const projects = [
   },
   {
     id: 19,
-    title: 'Gastro',
-    category: 'UGC',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767029010/gastro_1_-_frame_at_0m57s_xllywv.jpg',
-    videoUrl: 'https://youtube.com/embed/ITzJr_9zZKI?feature=share',
+    title: 'Dhirubhai Ambani',
+    category: 'Documentary',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863004/image_qeouv1.jpg',
+    videoUrl: 'https://youtube.com/embed/VekehHUq2jE?feature=share',
     tools: ['After Effects'],
   },
   {
@@ -399,14 +399,6 @@ const projects = [
     category: 'Jewellery',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767116198/ring_choose_-_frame_at_0m7s_md23zk.jpg',
     videoUrl: 'https://youtube.com/embed/S8Ah77OdqKg?feature=share',
-    tools: ['After Effects'],
-  },
-  {
-    id: 21  ,
-    title: 'Diamond Showcase',
-    category: 'Jewellery',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767116655/vasant_diamond_-_frame_at_0m7s_xjvtx7.jpg',
-    videoUrl: 'https://youtube.com/embed/eBNUSdUINqg?feature=share',
     tools: ['After Effects'],
   },
   {
@@ -419,10 +411,10 @@ const projects = [
   },
   {
     id: 23,
-    title: 'Amenities Showcase',
-    category: 'More After Effects Works',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117048/vraj_wave_1_-_frame_at_0m7s_niuuck.jpg',
-    videoUrl: 'https://youtube.com/embed/eC1nbG8PGss?feature=share',
+    title: 'Outfit',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863886/image_g1vzqp.jpg',
+    videoUrl: 'https://youtube.com/embed/8ylRtqDpGYU?feature=share',
     tools: ['After Effects'],
   },
   {
@@ -494,20 +486,20 @@ const projects = [
 
   {
     id: 31,
-    title: 'Rajvi Makeup',
-    category: 'Fashion',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258989/rajvi_1_-_frame_at_0m54s_dozdto.jpg',
-    videoUrl: 'https://youtube.com/embed/zA8vER44rNE?feature=share',
+    title: 'Oviyana',
+    category: 'Jewellery',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863786/image_vsxdgu.jpg',
+    videoUrl: 'https://youtube.com/embed/-36G9R74EsY?feature=share',
     tools: ['Premiere Pro'],
   },
 
   {
     id: 32,
-    title: 'Purva Pandey',
-    category: 'Creative Typography',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259156/Sequence_01_-_frame_at_0m11s_nz1igk.jpg',
-    videoUrl: 'https://youtube.com/embed/Zcl8xRxZrTw?feature=share',
-    tools: ['Premiere Pro'],
+    title: 'Real estate',
+    category: 'UGC',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863294/image_uuhlye.jpg',
+    videoUrl: 'https://youtube.com/embed/NLDsm6PmuTE?feature=share',
+    tools: ['After Effects'],
   },
 
   {
@@ -524,7 +516,7 @@ const projects = [
     title: 'Atha for All',
     category: 'Cafe works',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773259693/atha_2_-_frame_at_0m4s_vj1oub.jpg',
-    videoUrl: 'https://youtube.com/embed/1_BKyeBLRjQ?feature=share',
+    videoUrl: 'https://youtube.com/embed/B216h5P2aHA?feature=share',
     tools: ['Premiere Pro'],
   },
 
@@ -557,10 +549,10 @@ const projects = [
 
   {
     id: 38,
-    title: 'CA Hiren, Surat',
-    category: 'UGC',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573397/image_hpjovm.jpg',
-    videoUrl: 'https://youtube.com/embed/Gci3vOmLtkU?feature=share',
+    title: 'Dawood',
+    category: 'Documentary',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863089/image_lkbig7.jpg',
+    videoUrl: 'https://youtube.com/embed/Id4qS3tWE_8',
     tools: ['Premiere Pro'],
   },
 
@@ -600,14 +592,6 @@ const projects = [
     tools: ['Premiere Pro'],
   },
 
-  {
-    id: 42,
-    title: 'Desaii Global Group',
-    category: 'Motion Graphics',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627343/image_c3p9nz.jpg',
-    videoUrl: 'https://youtube.com/embed/zs1DRfsP_Ic?feature=share',
-    tools: ['Premiere Pro'],
-  },
 
   {
     id: 42,
@@ -638,6 +622,46 @@ const projects = [
 
 
 ];
+
+const getEmbedUrl = (url: string) => {
+  if (!url) return '';
+  
+  let videoId = '';
+  
+  try {
+    if (url.includes('/shorts/')) {
+      const parts = url.split('/shorts/');
+      if (parts[1]) {
+        videoId = parts[1].split(/[?#]/)[0];
+      }
+    } else if (url.includes('/embed/')) {
+      const parts = url.split('/embed/');
+      if (parts[1]) {
+        videoId = parts[1].split(/[?#]/)[0];
+      }
+    } else if (url.includes('v=')) {
+      const urlObj = new URL(url);
+      videoId = urlObj.searchParams.get('v') || '';
+    } else if (url.includes('youtu.be/')) {
+      const parts = url.split('youtu.be/');
+      if (parts[1]) {
+        videoId = parts[1].split(/[?#]/)[0];
+      }
+    }
+    
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+  } catch (e) {
+    console.error('Error parsing youtube url:', e);
+  }
+  
+  if (url.includes('youtube.com/embed/')) {
+    return url.replace('youtube.com/embed/', 'www.youtube.com/embed/');
+  }
+  
+  return url;
+};
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState('3D Animation');
@@ -779,7 +803,7 @@ const PortfolioSection = () => {
                 {/* Video side */}
                 <div className="relative aspect-video bg-muted">
                   <iframe
-                    src={selectedProject.videoUrl}
+                    src={getEmbedUrl(selectedProject.videoUrl)}
                     title={selectedProject.title}
                     className="absolute inset-0 w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
