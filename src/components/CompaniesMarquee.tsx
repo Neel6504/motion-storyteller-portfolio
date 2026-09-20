@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { useState } from 'react';
 
 const companies = [
@@ -25,6 +25,13 @@ const CompanyCard = ({ name }: { name: string }) => {
   const prefersReducedMotion = useReducedMotion();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 260, damping: 24 });
+  const smoothY = useSpring(mouseY, { stiffness: 260, damping: 24 });
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [3, -3]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-3, 3]);
+  const spotlightX = useTransform(smoothX, [-0.5, 0.5], ['0%', '100%']);
+  const spotlightY = useTransform(smoothY, [-0.5, 0.5], ['0%', '100%']);
+  const spotlight = useMotionTemplate`radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(111, 75, 255, 0.2), transparent 52%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -50,7 +57,13 @@ const CompanyCard = ({ name }: { name: string }) => {
       <motion.div
         animate={{ scale: isHovered ? 1.05 : 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative flex items-center justify-center w-full min-h-[80px] px-4 md:px-8 py-4 bg-card/30 border border-border/30 rounded-lg hover:border-primary/50 hover:bg-card/50 transition-colors duration-300 overflow-hidden"
+        style={{
+          rotateX: prefersReducedMotion ? 0 : rotateX,
+          rotateY: prefersReducedMotion ? 0 : rotateY,
+          transformPerspective: 800,
+        }}
+        tabIndex={0}
+        className="relative flex items-center justify-center w-full min-h-[80px] px-4 md:px-8 py-4 bg-card/30 border border-border/30 rounded-lg hover:border-primary/50 hover:bg-card/50 focus-visible:border-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 transition-colors duration-300 overflow-hidden"
       >
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg pointer-events-none"
@@ -58,11 +71,13 @@ const CompanyCard = ({ name }: { name: string }) => {
           transition={{ duration: 0.3 }}
         />
 
+        <div className="pointer-events-none absolute inset-y-0 -left-1/2 z-10 w-2/5 skew-x-[-18deg] bg-white/[0.12] transition-transform duration-700 group-hover:translate-x-[420%]" aria-hidden="true" />
+
         {!prefersReducedMotion && (
           <motion.div
             className="absolute inset-0 pointer-events-none rounded-lg overflow-hidden"
             style={{
-              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(82,39,255,0.18) 0%, transparent 50%)`,
+                background: spotlight,
             }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.2 }}
@@ -78,17 +93,15 @@ const CompanyCard = ({ name }: { name: string }) => {
 };
 
 const CompaniesMarquee = () => {
-  const duplicatedCompanies = [...companies, ...companies];
-
   const marqueeVariants = {
     animate: {
       x: [0, -192 * companies.length],
       transition: {
         x: {
           repeat: Infinity,
-          repeatType: 'loop',
+          repeatType: 'loop' as const,
           duration: 35,
-          ease: 'linear',
+          ease: 'linear' as const,
         },
       },
     },

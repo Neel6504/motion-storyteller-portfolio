@@ -7,6 +7,7 @@ interface Influencer {
   handle: string;
   followers: string;
   views?: string;
+  profession: string;
   niche: string;
   quote?: string;
 }
@@ -15,74 +16,114 @@ const influencers: Influencer[] = [
   {
     name: "Sapna Rai",
     handle: "@sapnaraich",
-    followers: "100K+",
+    followers: "185K+",
+    views: "84k+",
+    profession: "Fashion Creator",
     niche: "Fashion & Lifestyle",
     quote: "Delivered high-converting aesthetic reels with smooth color grading and motion stories."
   },
   {
     name: "Nidhi Shah",
     handle: "@shahnidhi.10",
-    followers: "250K+",
+    followers: "73k+",
+    views: "61k+",
+    profession: "Actor & Creator",
     niche: "Entertainment & Acting",
     quote: "Crafted viral lifestyle short edits with custom transitions and trending sound cuts."
   },
   {
     name: "Jal Hiradiya",
     handle: "@jalhiradiya",
-    followers: "50K+",
-    niche: "Fitness & Tech",
+    followers: "23k+",
+    views: "30k+",
+    profession: "Creator, Videographer & Agency owner",
+    niche: "Fashion & Lifestyle",
     quote: "Produced energetic, fast-paced video edits optimized for high engagement."
   },
   {
     name: "Manali Gandhi",
-    handle: "@manaligandhi",
-    followers: "80K+",
+    handle: "@themanaligandhi",
+    followers: "168K+",
+    views: "250k+",
+    profession: "Beauty Creator",
     niche: "Beauty & Style",
     quote: "Sophisticated motion edits designed to elevate brand beauty campaigns."
   },
   {
     name: "Srishti Dani",
-    handle: "@srishtidani",
-    followers: "120K+",
-    niche: "Vlogging & Lifestyle",
+    handle: "@srishtieforyou",
+    followers: "112K+",
+    views: "25k+",
+    profession: "Vlogger & Creator",
+    niche: "Vlogging, Fashion & Lifestyle",
     quote: "Engaging vertical reel edits packed with dynamic text overlays and seamless flow."
   },
   {
     name: "Vishrut Kshatriya",
-    handle: "@vishrutkshatriya",
-    followers: "90K+",
-    niche: "Digital Content",
+    handle: "@vishrut_kshatriya",
+    followers: "1000+",
+    views: "50k+",
+    profession: "Photographer",
+    niche: "Photographer & Videographer",
     quote: "Punchy visual storytelling tailored to keep social audiences hooked."
   },
   {
     name: "Om Parekh",
-    handle: "@omparekh",
-    followers: "75K+",
-    niche: "Storytelling & Visuals",
+    handle: "@om_.parekh",
+    followers: "2000+",
+    views: "25k+",
+    profession: "Agency owner",
+    niche: "Storytelling & Business",
     quote: "Dynamic typography animations and crisp audio-visual sync for viral impact."
   },
   {
     name: "Dhruvil Shah",
-    handle: "@dhruvilshah",
-    followers: "110K+",
-    niche: "Filmmaking & Edits",
+    handle: "@dhruvilverse",
+    followers: "5K+",
+    views: "10k+",
+    profession: "Creator",
+    niche: "Creator",
     quote: "Clean cut edits with custom sound design and high-end visual pacing."
   },
   {
     name: "Antra Agrawal",
-    handle: "@antraagrawal",
-    followers: "60K+",
-    niche: "Lifestyle & Culture",
+    handle: "@antra_agrawal24",
+    followers: "145K+",
+    views: "685k+",
+    profession: "Lifestyle Creator",
+    niche: "Lifestyle & Beauty",
     quote: "Vibrant visual edits bringing brand concepts to life effortlessly."
   },
   {
     name: "Tania Gupta",
-    handle: "@taniagupta",
-    followers: "200K+",
+    handle: "@glamlook_by_taniee",
+    followers: "145K+",
+    views: "172k+",
+    profession: "Fashion Influencer",
     niche: "Fashion & Influencer",
     quote: "Glamorous video edits designed for luxury brand collaborations and launches."
   }
 ];
+
+function parseViews(value?: string): number {
+  if (!value) return 0;
+
+  const normalizedValue = value.toLowerCase().replace(/,/g, "").trim();
+  const amount = Number.parseFloat(normalizedValue);
+
+  if (Number.isNaN(amount)) return 0;
+  if (normalizedValue.endsWith("m+")) return amount * 1_000_000;
+  if (normalizedValue.endsWith("k+")) return amount * 1_000;
+  return amount;
+}
+
+function formatCombinedViews(): string {
+  const totalViews = influencers.reduce((total, influencer) => total + parseViews(influencer.views), 0);
+
+  if (totalViews >= 1_000_000) return `${(totalViews / 1_000_000).toFixed(1)}M+`;
+  if (totalViews >= 1_000) return `${Math.round(totalViews / 1_000)}K+`;
+  return `${Math.round(totalViews)}+`;
+}
 
 function CreatorCard({
   influencer,
@@ -104,47 +145,34 @@ function CreatorCard({
         {influencer.followers}
       </div>
       <div className="relative flex h-full flex-col p-6 sm:p-7">
-        <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70">
-          <span>0{creatorNumber} / Creator</span>
-        </div>
-
-        <div className="relative mt-7 flex items-start gap-5">
-          <div className="relative flex min-h-40 w-[46%] shrink-0 items-end overflow-hidden py-3">
-            <div className="relative z-10">
-              <motion.p animate={{ opacity: isFront ? 1 : 0.7, y: isFront ? 0 : 4 }} transition={{ duration: 0.45 }} className="text-[9px] uppercase tracking-[0.2em] text-primary">
-                Views
-              </motion.p>
-              <motion.p animate={{ opacity: isFront ? 1 : 0.7, scale: isFront ? 1 : 0.97 }} transition={{ duration: 0.5 }} className="mt-2 font-display text-[2.6rem] font-semibold leading-none tracking-[-0.055em] text-foreground sm:text-5xl">
-                {influencer.views ?? "--"}
-              </motion.p>
-              <p className="mt-2 max-w-[8rem] text-[8px] uppercase tracking-[0.12em] text-muted-foreground/50">Generated through edits</p>
-            </div>
-            <motion.svg
-              viewBox="0 0 220 180"
-              className="pointer-events-none absolute -left-8 -top-5 h-48 w-56 text-primary/20"
-              animate={reduceMotion ? undefined : { rotate: [0, 2, -1, 0] }}
-              transition={reduceMotion ? undefined : { duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              aria-hidden="true"
+        <div className="grid grid-cols-[0.8fr_1.2fr] gap-6 border-b border-white/[0.08] pb-7">
+          <div className="min-w-0">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70">
+              0{creatorNumber}
+            </p>
+            <p className="mt-8 text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+              Views
+            </p>
+            <motion.p
+              animate={{ opacity: isFront ? 1 : 0.65, scale: isFront ? 1 : 0.97 }}
+              transition={{ duration: 0.5 }}
+              className="mt-2 font-display text-3xl font-semibold leading-none tracking-[-0.05em] text-foreground sm:text-4xl"
             >
-              <defs>
-                <pattern id={`views-grid-${creatorNumber}`} width="18" height="18" patternUnits="userSpaceOnUse">
-                  <path d="M18 0H0V18" fill="none" stroke="currentColor" strokeOpacity=".2" strokeWidth=".6" />
-                </pattern>
-              </defs>
-              <rect width="220" height="180" fill={`url(#views-grid-${creatorNumber})`} opacity=".4" />
-              <ellipse cx="112" cy="90" rx="92" ry="40" fill="none" stroke="currentColor" strokeOpacity=".55" strokeWidth=".8" transform="rotate(-22 112 90)" />
-              <path d="M16 144C68 94 130 110 205 28" fill="none" stroke="currentColor" strokeOpacity=".55" strokeWidth="1" />
-              <circle cx="168" cy="56" r="2.5" fill="currentColor">
-                {!reduceMotion && <animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite" />}
-              </circle>
-            </motion.svg>
+              {influencer.views ?? "--"}
+            </motion.p>
+            <p className="mt-3 max-w-[7rem] text-[8px] uppercase leading-[1.5] tracking-[0.12em] text-muted-foreground/60">
+              Generated through edits
+            </p>
           </div>
-          <div className="min-w-0 pt-2">
-            <p className="mb-2 text-[9px] uppercase tracking-[0.22em] text-primary/80">{influencer.niche.split(" & ")[0]}</p>
-            <h3 className="font-display text-xl font-semibold leading-tight tracking-[-0.02em] text-foreground sm:text-[1.35rem]">
+
+          <div className="min-w-0">
+            <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-primary">
+              {influencer.profession}
+            </p>
+            <h3 className="mt-3 font-display text-2xl font-bold leading-[1.05] tracking-[-0.035em] text-foreground sm:text-[1.8rem]">
               {influencer.name}
             </h3>
-            <p className="mt-1 text-xs tracking-[0.02em] text-muted-foreground">{influencer.handle}</p>
+            <p className="mt-2 text-xs tracking-[0.02em] text-muted-foreground">{influencer.handle}</p>
             <a
               href={`https://instagram.com/${influencer.handle.replace("@", "")}`}
               target="_blank"
@@ -160,7 +188,7 @@ function CreatorCard({
           </div>
         </div>
 
-        <div className="relative mt-auto max-w-[88%] pt-8">
+        <div className="relative max-w-[94%] pt-7">
           <FaQuoteLeft className="mb-3 text-sm text-primary/80" aria-hidden="true" />
           <p className="font-display text-[15px] leading-[1.45] text-foreground/85 sm:text-base">{influencer.quote}</p>
         </div>
@@ -346,37 +374,51 @@ function StackedInfluencers({
 
 const InfluencersMarquee = () => {
   const [index, setIndex] = useState(0);
+  const activeInfluencer = influencers[index];
+  const combinedViews = formatCombinedViews();
 
   return (
     <section className="py-14 md:py-20 border-b border-border/50 overflow-hidden bg-background/50" aria-label="Influencers Worked With">
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-
-        {/* Section Header */}
+      <div className="container mx-auto px-4 md:px-6 relative z-10 grid items-center gap-12 md:grid-cols-[minmax(0,0.8fr)_minmax(420px,1.2fr)] md:gap-16 lg:gap-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          className="max-w-xl text-left"
         >
-          <p className="text-primary font-medium mb-2 tracking-widest uppercase text-xs md:text-sm">
-            Collaborations
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-primary md:text-sm">
+            Creator collaborations
           </p>
-          <h2 className="font-display text-2xl md:text-4xl font-bold mb-3 text-foreground">
-            Trusted By 9+ Influencers Globally
+          <h2 className="mb-5 max-w-lg font-display text-4xl font-semibold leading-[0.98] tracking-[-0.045em] text-foreground md:text-6xl">
+            Turning creators into brands.
           </h2>
-          <p className="text-muted-foreground text-xs md:text-sm max-w-xl mx-auto">
-            Delivering high-retention video edits and motion graphics for creators with over 1.2M+ combined followers
+          <p className="max-w-md text-sm leading-7 text-muted-foreground md:text-base">
+            High-retention edits and motion graphics built for creators who want every frame to earn attention.
+          </p>
+          <div className="mt-9 flex items-end gap-8 border-t border-border/70 pt-5">
+            <div>
+              <p className="font-display text-3xl font-semibold tracking-[-0.05em] text-foreground">{combinedViews}</p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Combined reach</p>
+            </div>
+            <div>
+              <p className="font-display text-3xl font-semibold tracking-[-0.05em] text-foreground">9+</p>
+              <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Creator partners</p>
+            </div>
+          </div>
+          <p className="mt-10 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+            Now featuring <span className="text-primary">{activeInfluencer.name}</span>
           </p>
         </motion.div>
 
-      
-
-
-        {/* Stacked influencer cards (click front -> back) */}
-        <div className="relative w-full flex justify-center mt-8">
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="relative flex w-full justify-center md:justify-end"
+        >
           <div className="relative" style={{ width: "min(420px, calc(100vw - 40px))", height: 560, perspective: 1200 }}>
-            {/* Manage a local order state for stack rotation */}
             <StackedInfluencers
               items={influencers}
               visibleCount={5}
@@ -389,8 +431,7 @@ const InfluencersMarquee = () => {
               onSelect={(i) => setIndex(i)}
             />
           </div>
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

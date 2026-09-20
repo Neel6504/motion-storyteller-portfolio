@@ -136,6 +136,11 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           transition={{ duration: 0.3 }}
         />
 
+        <div
+          className={`pointer-events-none absolute inset-y-0 -left-1/2 z-10 w-2/5 skew-x-[-18deg] bg-white/[0.12] transition-transform duration-700 ${hoverEnabled ? 'group-hover:translate-x-[420%]' : ''}`}
+          aria-hidden="true"
+        />
+
         {/* Spotlight effect (desktop only, no touch) */}
         {hoverEnabled && (
           <motion.div

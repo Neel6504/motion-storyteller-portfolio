@@ -227,7 +227,7 @@ const HeroSection = () => {
               className="flex items-center justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border/50"
             >
               {[
-                { value: '500+', label: 'Reels and YT videos Delivered' },
+                { value: '700+', label: 'Reels and YT videos Delivered' },
                 { value: '3+', label: 'Years' },
                 { value: '40+', label: 'Clients' },
               ].map((stat) => (
