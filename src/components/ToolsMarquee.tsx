@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
-import { Play, Scissors, Layers, Palette, Sparkles, Zap } from 'lucide-react';
+import { Play, Layers, Sparkles, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import CountUp from './CountUp';
 
@@ -12,8 +12,8 @@ const tools = [
     hoverColor: 'from-purple-600 to-purple-900',
     description: 'Motion Graphics & Visual Effects',
     Icon: Layers,
-    skillLevel: 95,
-    yearsExp: '3+',
+    mastery: 95,
+    capabilities: ['Motion Graphics', 'Visual Effects', 'Compositing'],
     projectCount: 200,
   },
   { 
@@ -24,35 +24,18 @@ const tools = [
     hoverColor: 'from-blue-600 to-blue-900',
     description: 'Professional Video Editing',
     Icon: Play,
-    skillLevel: 90,
-    yearsExp: '3+',
+    mastery: 90,
+    capabilities: ['Video Editing', 'Color Grading', 'Sound Design'],
     projectCount: 200,
   },
-  { 
-    name: 'CapCut', 
-    icon: 'Cc',
-    logo: 'https://1000logos.net/wp-content/uploads/2025/01/CapCut-Logo-500x281.png',
-    color: 'from-pink-600/20 to-pink-900/20',
-    hoverColor: 'from-pink-600 to-pink-900',
-    description: 'Creative Content Editing',
-    Icon: Scissors,
-    skillLevel: 85,
-    yearsExp: '2+',
-    projectCount: 50,
-  },
-  { 
-    name: 'Canva', 
-    icon: 'Ca',
-    logo: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776630664/icons8-canva-48_kmc0yq.png',
-    color: 'from-cyan-600/20 to-teal-900/20',
-    hoverColor: 'from-cyan-600 to-teal-900',
-    description: 'Graphic Design & Templates',
-    Icon: Palette,
-    skillLevel: 88,
-    yearsExp: '3+',
-    projectCount: 15,
-  },
 ];
+
+const ToolCardCornerAccent = ({ visible }: { visible: boolean }) => (
+  <div
+    className={`pointer-events-none absolute right-4 top-4 z-20 h-20 w-20 rounded-2xl bg-gradient-to-bl from-primary/10 to-transparent transition-opacity duration-500 md:right-8 md:top-8 ${visible ? 'opacity-100' : 'opacity-0'}`}
+    aria-hidden="true"
+  />
+);
 
 const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -127,102 +110,104 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`relative bg-gradient-to-br from-card/90 to-card/60 md:backdrop-blur-xl border-2 border-border/30 rounded-2xl overflow-hidden ${hoverEnabled ? 'hover:border-primary/50' : ''} transition-colors duration-500 h-full w-full`}
+        className={`relative bg-gradient-to-br from-card/90 to-card/60 md:backdrop-blur-xl border-2 border-border/30 rounded-2xl ${hoverEnabled ? 'hover:border-primary/50' : ''} transition-colors duration-500 h-full w-full`}
       >
-        {/* Subtle gradient overlay on hover */}
-        <motion.div
-          className={`absolute inset-0 bg-gradient-to-br ${tool.color} pointer-events-none`}
-          animate={{ opacity: hoverEnabled && isHovered && !prefersReducedMotion ? 0.15 : 0 }}
-          transition={{ duration: 0.3 }}
-        />
-
-        <div
-          className={`pointer-events-none absolute inset-y-0 -left-1/2 z-10 w-2/5 skew-x-[-18deg] bg-white/[0.12] transition-transform duration-700 ${hoverEnabled ? 'group-hover:translate-x-[420%]' : ''}`}
-          aria-hidden="true"
-        />
-
-        {/* Spotlight effect (desktop only, no touch) */}
-        {hoverEnabled && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+          {/* Subtle gradient overlay on hover */}
           <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
-            }}
-            animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
+            className={`absolute inset-0 bg-gradient-to-br ${tool.color}`}
+            animate={{ opacity: hoverEnabled && isHovered && !prefersReducedMotion ? 0.15 : 0 }}
+            transition={{ duration: 0.3 }}
           />
-        )}
+
+          <div
+            className={`absolute inset-y-0 -left-1/2 z-10 w-2/5 skew-x-[-18deg] bg-white/[0.12] transition-transform duration-700 ${hoverEnabled ? 'group-hover:translate-x-[420%]' : ''}`}
+            aria-hidden="true"
+          />
+
+          {/* Spotlight effect (desktop only, no touch) */}
+          {hoverEnabled && (
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background: `radial-gradient(circle at ${(mouseX.get() + 0.5) * 100}% ${(mouseY.get() + 0.5) * 100}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
+              }}
+              animate={{ opacity: isHovered && !prefersReducedMotion ? 1 : 0 }}
+              transition={{ duration: 0.2 }}
+            />
+          )}
+        </div>
 
         {/* Main content with subtle parallax */}
         <motion.div 
-          className="relative p-4 sm:p-6 md:p-8" 
+          className="relative flex min-h-[360px] flex-col p-6 sm:p-7 md:p-7" 
           style={{ 
             translateZ: isMobile ? 0 : 30,
             x: isMobile ? 0 : parallaxLayer1X,
             y: isMobile ? 0 : parallaxLayer1Y,
           }}
         >
-          {/* Header with logo and badge */}
-          <div className="flex items-start justify-between mb-4 md:mb-6">
-            <div className="relative">
-              <motion.div
-                className={`w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gradient-to-br ${tool.name === 'CapCut' ? 'bg-white' : tool.color} flex items-center justify-center transition-all duration-500 border-2 border-border/30 shadow-lg overflow-hidden p-2`}
-                style={{ 
-                  translateZ: isMobile ? 0 : 60,
-                  x: isMobile ? 0 : parallaxLayer2X,
-                  y: isMobile ? 0 : parallaxLayer2Y,
-                }}
-                animate={{
-                  scale: hoverEnabled && isHovered ? 1.05 : 1,
-                  rotate: prefersReducedMotion ? 0 : (hoverEnabled && isHovered ? [0, -3, 3, 0] : 0),
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <img 
-                  src={tool.logo} 
-                  alt={`${tool.name} logo`}
-                  className="w-full h-full object-contain pointer-events-none"
-                />
-              </motion.div>
-            </div>
-
-            {/* Skill percentage */}
+          {/* Tool identity and mastery */}
+          <div className="flex items-start justify-between gap-6">
             <motion.div
-              className="text-right flex-shrink-0"
+              className={`flex h-[72px] w-[72px] items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-br ${tool.color} p-2 shadow-lg`}
+              style={{
+                translateZ: isMobile ? 0 : 60,
+                x: isMobile ? 0 : parallaxLayer2X,
+                y: isMobile ? 0 : parallaxLayer2Y,
+              }}
+              animate={{
+                scale: hoverEnabled && isHovered ? 1.05 : 1,
+                rotate: prefersReducedMotion ? 0 : (hoverEnabled && isHovered ? [0, -3, 3, 0] : 0),
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <img
+                src={tool.logo}
+                alt={`${tool.name} logo`}
+                className="h-full w-full object-contain pointer-events-none"
+              />
+            </motion.div>
+
+            <motion.div
+              className="flex-shrink-0 text-right"
               animate={{ scale: hoverEnabled && isHovered ? 1.15 : 1 }}
             >
-              <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                <CountUp value={`${tool.skillLevel}%`} />
+              <div className="font-display text-3xl font-bold leading-none text-primary">
+                <CountUp value={`${tool.mastery}%`} />
               </div>
-              <div className="text-xs text-muted-foreground">Mastery</div>
+              <div className="mt-2 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Mastery</div>
             </motion.div>
           </div>
 
-          {/* Tool name and description */}
-          <motion.div 
-            className="mb-4 md:mb-6 min-h-[60px] md:min-h-[72px]"
-            style={{ 
-              translateZ: isMobile ? 0 : 25,
-            }}
-          >
-            <h3 className={`font-display font-bold text-base sm:text-lg md:text-xl text-foreground mb-1 md:mb-2 ${hoverEnabled ? 'group-hover:text-primary' : ''} transition-colors line-clamp-2`}>
+          <div className="mt-7">
+            <h3 className={`font-display text-xl font-bold leading-tight text-foreground ${hoverEnabled ? 'group-hover:text-primary' : ''} transition-colors md:text-[22px]`}>
               {tool.name}
             </h3>
-            <p className={`text-muted-foreground text-xs sm:text-sm ${hoverEnabled ? 'group-hover:text-foreground/80' : ''} transition-colors line-clamp-2`}>
-              {tool.description}
-            </p>
-          </motion.div>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground/75">{tool.description}</p>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {tool.capabilities.map((capability) => (
+              <span
+                key={capability}
+                className="rounded-lg border border-white/[0.06] bg-white/[0.035] px-2.5 py-1.5 text-[11px] text-foreground/70 transition-colors duration-300 group-hover:border-primary/20 group-hover:text-foreground/85"
+              >
+                {capability}
+              </span>
+            ))}
+          </div>
 
           {/* Stats */}
-          <motion.div 
-            className="flex items-center justify-between pt-4 border-t border-border/30"
-            style={{ 
+          <motion.div
+            className="mt-auto flex items-center justify-between border-t border-white/[0.07] pt-[18px]"
+            style={{
               translateZ: isMobile ? 0 : 25,
             }}
           >
-            <motion.div 
+            <motion.div
               className="flex items-center gap-2"
-              style={{ 
+              style={{
                 translateZ: isMobile ? 0 : 70,
                 x: isMobile ? 0 : parallaxLayer2X,
                 y: isMobile ? 0 : parallaxLayer2Y,
@@ -233,7 +218,7 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
               </div>
               <div>
                 <div className="text-sm font-bold text-foreground">
-                  <CountUp value={`${tool.projectCount}+`} />
+                  {tool.projectCount}+
                 </div>
                 <div className="text-xs text-muted-foreground">Projects</div>
               </div>
@@ -256,9 +241,8 @@ const ToolCard = ({ tool, index }: { tool: typeof tools[0]; index: number }) => 
           </motion.div>
         </motion.div>
 
-        {/* Corner accent */}
-        <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 ${hoverEnabled ? 'group-hover:opacity-100' : ''} transition-opacity duration-500 pointer-events-none rounded-2xl`} />
       </motion.div>
+      <ToolCardCornerAccent visible={hoverEnabled && isHovered} />
     </motion.div>
   );
 };
@@ -326,7 +310,7 @@ const ToolsMarquee = () => {
 
       {/* Interactive 3D tool cards */}
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-[18px] sm:grid-cols-2 sm:gap-6 md:gap-7">
           {tools.map((tool, index) => (
             <ToolCard key={tool.name} tool={tool} index={index} />
           ))}
