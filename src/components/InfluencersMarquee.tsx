@@ -12,6 +12,8 @@ interface Influencer {
   quote?: string;
 }
 
+const CARD_ROTATION_MS = 2800;
+
 const influencers: Influencer[] = [
   {
     name: "Sapna Rai",
@@ -141,22 +143,24 @@ function CreatorCard({
   const cardContent = (
     <>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,hsl(var(--primary)/.16),transparent_35%)]" />
-      <div className="absolute -bottom-5 -right-8 select-none font-display text-[7.5rem] font-semibold leading-none tracking-[-0.08em] text-foreground/[0.035]">
-        {influencer.followers}
-      </div>
+      {isFront && (
+        <div className="absolute -bottom-5 -right-8 select-none font-display text-[7.5rem] font-semibold leading-none tracking-[-0.08em] text-foreground/[0.035]">
+          {influencer.followers}
+        </div>
+      )}
       <div className="relative flex h-full flex-col p-6 sm:p-7">
         <div className="grid grid-cols-[0.8fr_1.2fr] gap-6 border-b border-white/[0.08] pb-7">
           <div className="min-w-0">
             <p className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70">
               0{creatorNumber}
             </p>
-            <p className="mt-8 text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="mt-8 text-[9px] uppercase tracking-[0.2em] text-white">
               Views
             </p>
             <motion.p
               animate={{ opacity: isFront ? 1 : 0.65, scale: isFront ? 1 : 0.97 }}
               transition={{ duration: 0.5 }}
-              className="mt-2 font-display text-3xl font-semibold leading-none tracking-[-0.05em] text-foreground sm:text-4xl"
+              className="mt-2 font-display text-5xl font-semibold leading-none tracking-[-0.05em] text-white sm:text-6xl"
             >
               {influencer.views ?? "--"}
             </motion.p>
@@ -191,25 +195,43 @@ function CreatorCard({
         <div className="relative max-w-[94%] pt-7">
           <FaQuoteLeft className="mb-3 text-sm text-primary/80" aria-hidden="true" />
           <p className="font-display text-[15px] leading-[1.45] text-foreground/85 sm:text-base">{influencer.quote}</p>
+          {isFront && (
+            <div className="mt-5 inline-flex items-center gap-2 text-[9px] font-medium uppercase tracking-[0.18em] text-primary/80">
+              <span className="h-1 w-1 rounded-full bg-primary" aria-hidden="true" />
+              <span>Click to see next</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          )}
         </div>
 
-        <div className="relative mt-7 flex items-end justify-between border-t border-white/[0.08] pt-4">
-          <div>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70">{influencer.niche}</p>
+        {isFront && (
+          <div className="relative mt-7 flex items-end justify-between border-t border-white/[0.08] pt-4">
+            <div>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/70">{influencer.niche}</p>
+            </div>
+            <div className="text-right">
+              <p className="font-display text-6xl font-semibold leading-none tracking-[-0.06em] text-white sm:text-7xl">{influencer.followers}</p>
+              <p className="mt-1 text-[9px] uppercase tracking-[0.2em] text-white">Followers</p>
+            </div>
           </div>
-          <div className="text-right">
-            <p className="font-display text-4xl font-semibold leading-none tracking-[-0.06em] text-foreground">{influencer.followers}</p>
-            <p className="mt-1 text-[9px] uppercase tracking-[0.2em] text-primary/80">Followers</p>
+        )}
+              {isFront && (
+                <div className="pointer-events-none absolute inset-x-6 bottom-5 z-10 flex h-1.5 gap-1 sm:inset-x-7" aria-label="Time until next card">
+                  {Array.from({ length: 12 }, (_, segmentIndex) => (
+                    <motion.span
+                      key={`${influencer.handle}-${segmentIndex}`}
+                      className="h-full flex-1 rounded-full bg-primary"
+                      initial={{ opacity: 0.18, scaleY: 0.55 }}
+                      animate={{ opacity: 1, scaleY: 1 }}
+                      transition={{
+                        delay: (segmentIndex * (CARD_ROTATION_MS / 1000)) / 12,
+                        duration: 0.12,
+                        ease: "easeOut",
+                      }}
+                    />
+                  ))}
           </div>
-        </div>
-        <div className="mt-5 h-px w-full overflow-hidden bg-white/10">
-          <motion.div
-            className="h-full origin-left bg-primary/70"
-            initial={{ scaleX: 0.18 }}
-            animate={{ scaleX: isFront ? 1 : 0.22 }}
-            transition={{ duration: isFront ? 2.2 : 0.5, ease: "linear" }}
-          />
-        </div>
+        )}
       </div>
       {isFront && <div className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 skew-x-[-18deg] bg-white/[0.04] transition-transform duration-700 group-hover:translate-x-[480%]" />}
     </>
@@ -224,7 +246,7 @@ function CreatorCard({
       type="button"
       onClick={onActivate}
       className="group relative h-full w-full overflow-hidden rounded-[1.5rem] border border-white/[0.14] bg-[#0d0c11] text-left shadow-[0_28px_80px_hsl(255_20%_0%_/_0.58)] transition-transform duration-500 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary/50"
-      aria-label={`Show ${influencer.name}`}
+      aria-label={`Show next creator after ${influencer.name}`}
     >
       {cardContent}
     </button>
@@ -240,7 +262,7 @@ function StackedInfluencers({
   spreadX = 0,
   spreadY = 12,
   duration = 0.35,
-  ease = "easeOut",
+  ease = "smooth",
   depthScale = 0.06,
   depthOpacity = 0.08,
   onSelect,
@@ -286,7 +308,7 @@ function StackedInfluencers({
   useEffect(() => {
     if (shouldReduceMotion || count < 2) return;
 
-    const rotationTimer = window.setInterval(rotate, 2800);
+    const rotationTimer = window.setInterval(rotate, CARD_ROTATION_MS);
     return () => window.clearInterval(rotationTimer);
   }, [count, rotate, shouldReduceMotion]);
 
@@ -299,7 +321,9 @@ function StackedInfluencers({
 
   const visibleIndices = order.slice(0, visible);
 
-  const transition = shouldReduceMotion ? { duration: 0 } : { duration, ease };
+  const transition = shouldReduceMotion
+    ? { duration: 0, ease: "linear" as const }
+    : { duration, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <div className="relative w-full h-full select-none" aria-label="Influencer testimonials">
@@ -348,13 +372,13 @@ function StackedInfluencers({
           key={`leaving-${leavingIndex}`}
           initial={{ x: 0, y: 0, scale: 1, opacity: 1, rotate: 0 }}
           animate={{
-            x: [0, 24, 8],
-            y: [0, -100, -100],
-            scale: [1, 0.94, 0.86],
+            x: [0, 12, 4],
+            y: [0, -72, -96],
+            scale: [1, 0.97, 0.9],
             opacity: [1, 1, 0],
-            rotate: [0, -4, 6],
+            rotate: [0, -2, 3],
           }}
-          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           onAnimationComplete={() => {
             setOrder((prev) => prev.concat(leavingIndex));
             setLeavingIndex(null);
@@ -379,7 +403,7 @@ const InfluencersMarquee = () => {
 
   return (
     <section className="py-14 md:py-20 border-b border-border/50 overflow-hidden bg-background/50" aria-label="Influencers Worked With">
-      <div className="container mx-auto px-4 md:px-6 relative z-10 grid items-center gap-12 md:grid-cols-[minmax(0,0.8fr)_minmax(420px,1.2fr)] md:gap-16 lg:gap-24">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 grid items-center gap-12 md:grid-cols-[minmax(0,0.8fr)_minmax(500px,1.2fr)] md:gap-16 lg:gap-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -418,16 +442,16 @@ const InfluencersMarquee = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative flex w-full justify-center md:justify-end"
         >
-          <div className="relative" style={{ width: "min(420px, calc(100vw - 40px))", height: 560, perspective: 1200 }}>
+          <div className="relative" style={{ width: "min(500px, calc(100vw - 40px))", height: 560, perspective: 1200 }}>
             <StackedInfluencers
               items={influencers}
               visibleCount={5}
-              cardWidth="min(420px, calc(100vw - 40px))"
+              cardWidth="min(500px, calc(100vw - 40px))"
               cardHeight={520}
               spreadX={0}
               spreadY={10}
-              duration={0.5}
-              ease="easeOut"
+              duration={0.65}
+              ease="smooth"
               onSelect={(i) => setIndex(i)}
             />
           </div>

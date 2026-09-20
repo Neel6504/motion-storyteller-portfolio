@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['3D Animation', 'Motion Graphics',  'UGC', 'Wedding & events', 'Documentary', 'Creative Typography', 'Logo Reveal', 'Meta Ads', 'Cafe works' , 'Fashion', 'Generative AI Video', 'Jewellery' ,'Shortfilm', 'Big Celebs', 'More After Effects Works'];
+const categories = ['Motion Graphics',  'UGC', 'Wedding & events', 'Documentary', 'Logo Reveal', 'Promotional reels' , 'Fashion', 'Generative AI Video','Shortfilm', 'Big Celebs'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -244,7 +244,7 @@ const projects = [
   {
     id: 1,
     title: 'Content Creation',
-    category: '3D Animation',
+    category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766167814/Screenshot_2025-12-19_234001_l7d1gl.png',
     videoUrl: 'https://www.youtube.com/embed/M2cESo0s81w?feature=share',
     tools: ['Cinema 4D', 'After Effects'],
@@ -268,7 +268,7 @@ const projects = [
   {
     id: 4,
     title: 'Diamond Zoom',
-    category: '3D Animation',
+    category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860128/3d_diamond_-_frame_at_0m1s_zhhmba.jpg',
     videoUrl: 'https://youtube.com/embed/hLredCyMk_8?feature=share',
     tools: ['Cinema 4D', 'After Effects'],
@@ -291,28 +291,30 @@ const projects = [
   },
   {
     id: 7,
-    title: 'Visual Effects Reel',
+    title: 'Yukai Foods',
     category: 'Logo Reveal',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766860926/logo_reveal_-_frame_at_0m0s_h7rfa2.jpg',
-    videoUrl: 'https://www.youtube.com/embed/Ed3sG7-Z-bs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789931139/Screenshot_2026-09-21_at_12.35.32_AM_znqf18.png',
+    videoUrl: 'https://youtube.com/embed/P-IZOiwNqqQ?feature=share',
     tools: ['After Effects'],
   },
   {
     id: 8,
     title: 'Messanger',
-    category: 'Meta Ads',
+    category: 'Motion Graphics',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1766898813/Meta_Ad_-_frame_at_0m4s_pc9gbn.jpg',
     videoUrl: 'https://www.youtube.com/embed/28GsBph5Fuw',
     tools: ['After Effects'],
   },
+
   {
     id: 9,
-    title: 'Calculator Launcher',
-    category: 'Meta Ads',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767023724/launcher_1_-_frame_at_0m34s_kbhz3y.jpg',
-    videoUrl: 'https://www.youtube.com/embed/Prz9xOvFbw4',
-    tools: ['After Effects'],
+    title: 'Clout Jeans',
+    category: 'UGC',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789931911/Screenshot_2026-09-21_at_12.31.07_AM_uf5mjv_ifpnja.png',
+    videoUrl: 'https://youtube.com/embed/cPWUrOz3O6c?feature=share',
+    tools: ['After Effects']
   },
+  
   {
     id: 10,
     title: 'HOY',
@@ -361,14 +363,7 @@ const projects = [
     videoUrl: 'https://youtube.com/embed/q3VEYyEaExo?feature=share',
     tools: ['After Effects'],
   },
-  {
-    id: 16,
-    title: 'Furniture',
-    category: 'Generative AI Video',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767027712/furniture_-_frame_at_0m24s_zbvyzm.jpg',
-    videoUrl: 'https://youtube.com/embed/YMu3YgvcCyc?feature=share',
-    tools: ['After Effects', 'Generative AI'],
-  },
+
   {
     id: 17,
     title: 'Moradiya Ras',
@@ -401,6 +396,17 @@ const projects = [
     videoUrl: 'https://youtube.com/embed/S8Ah77OdqKg?feature=share',
     tools: ['After Effects'],
   },
+
+  {
+    id: 21,
+    title: 'Promotional Reel',
+    category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789930905/Screenshot_2026-09-21_at_12.31.39_AM_ksxrv1.png',
+    videoUrl: 'https://youtube.com/embed/MB0Jk1SNKdQ?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+
   {
     id: 22,
     title: 'Over Text',
@@ -415,24 +421,27 @@ const projects = [
     category: 'Fashion',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863886/image_g1vzqp.jpg',
     videoUrl: 'https://youtube.com/embed/8ylRtqDpGYU?feature=share',
-    tools: ['After Effects'],
+    tools: ['Premiere Pro'],
   },
+
   {
     id: 24,
-    title: 'Carousel Video',
-    category: 'More After Effects Works',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117261/vraj_carousel_-_Trim_-_frame_at_0m4s_wd1lju.jpg',
-    videoUrl: 'https://youtube.com/embed/BdPu8nhkJso?feature=share',
+    title: 'Fashion Story',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789932158/Screenshot_2026-09-21_at_12.32.31_AM_sbd5qy_a7gasd.png',
+    videoUrl: 'https://youtube.com/embed/AyIcKBjI3Mk?feature=share',
     tools: ['After Effects'],
   },
+
   {
     id: 25,
-    title: 'Sketch',
-    category: 'More After Effects Works',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767117427/sketch_-_Trim_-_frame_at_0m7s_dddogb.jpg',
-    videoUrl: 'https://youtube.com/embed/cZ_BjtrDm6M?feature=share',
-    tools: ['After Effects'],
+    title: 'KBeauty Salon',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789931030/Screenshot_2026-09-21_at_12.33.22_AM_x3ma49.png',
+    videoUrl: 'https://youtube.com/embed/8CtieKzOqHM?feature=share',
+    tools: ['Premiere Pro'],
   },
+
   {
     id: 26,
     title: 'Trailer',
@@ -442,7 +451,7 @@ const projects = [
     tools: ['After Effects'],
   },
   {
-    id: 27,
+    id: 30,
     title: 'Wedding Film',
     category: 'Wedding & events',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1767155754/Wedding_-_frame_at_0m40s_lqseqa.jpg',
@@ -461,33 +470,17 @@ const projects = [
   },
   {
     id: 28,
-    title: 'Paneri - A Fashion Story',
+    title: 'Safed Poshak',
     category: 'Fashion',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258525/paneri_-_frame_at_0m21s_mm0shq.jpg',
-    videoUrl: 'https://youtube.com/embed/afi95FpRuDY?feature=share',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789933106/Screenshot_2026-09-21_at_12.35.03_AM_npu0si_hgynqw.png',
+    videoUrl: 'https://youtube.com/embed/KM-AIikDI34?feature=share',
     tools: ['Premiere Pro'],
-  },
-  {
-    id: 29,
-    title: 'Mokari',
-    category: 'Fashion',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258696/mokari_-_frame_at_0m3s_k6emwd.jpg',
-    videoUrl: 'https://youtube.com/embed/fKGlQ5jBs3Q?feature=share',
-    tools: ['After Effects', 'Premiere Pro'],
-  },
-  {
-    id: 30,
-    title: 'Desaii Global Group',
-    category: 'Motion Graphics',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1773258823/desaii_group_1_-_frame_at_0m24s_toexgh.jpg',
-    videoUrl: 'https://youtube.com/embed/5JFPK0ZvKAY?feature=share',
-    tools: ['After Effects'],
   },
 
   {
     id: 31,
     title: 'Oviyana',
-    category: 'Jewellery',
+    category: 'Generative AI Video',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1780863786/image_vsxdgu.jpg',
     videoUrl: 'https://youtube.com/embed/-36G9R74EsY?feature=share',
     tools: ['Premiere Pro'],
@@ -558,10 +551,10 @@ const projects = [
 
   {
     id: 39,
-    title: 'Radhika Bhardwaj',
-    category: 'Creative Typography',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1775573575/image_naubhn.jpg',
-    videoUrl: 'https://youtube.com/embed/woFo-l-hIH4?feature=share',
+    title: 'Janshakti Kitchen Solutions',
+    category: 'Promotional reels',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789931054/Screenshot_2026-09-21_at_12.33.44_AM_sntqlh.png',
+    videoUrl: 'https://youtube.com/embed/NRFjahaLWx8?feature=share',
     tools: ['Premiere Pro'],
   },
 
@@ -585,10 +578,10 @@ const projects = [
 
   {
     id: 42,
-    title: 'CA Hiren, Surat',
-    category: 'UGC',
-    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776627383/image_reregn.jpg',
-    videoUrl: 'https://youtube.com/shorts/zs1DRfsP_Ic?feature=share',
+    title: 'Oviyana Jewelst',
+    category: 'Generative AI Video',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789931109/Screenshot_2026-09-21_at_12.34.09_AM_sagrqz.png',
+    videoUrl: 'https://youtube.com/embed/wEzUqa0dxAM?feature=share',
     tools: ['Premiere Pro'],
   },
 
@@ -617,6 +610,42 @@ const projects = [
     category: 'Generative AI Video',
     thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1776629885/image_oj2kwo.jpg',
     videoUrl: 'https://youtube.com/embed/E6NGXLU9JlQ?feature=share',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 45,
+    title: 'Highlight',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789930727/Screenshot_2026-09-21_at_12.28.35_AM_cy3kvm.png',
+    videoUrl: 'https://youtu.com/embed/m554jevbLgE',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 46,
+    title: 'Boiler',
+    category: 'Wedding & events',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789930825/Screenshot_2026-09-21_at_12.30.17_AM_bgbgwx.png',
+    videoUrl: 'https://youtu.com/embed/MYcc3Th3YUQ',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 47,
+    title: 'Documentary',
+    category: 'Documentary',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789932858/Screenshot_2026-09-21_at_1.04.12_AM_or84xj.png',
+    videoUrl: 'https://youtu.com/embed/F-QlgDnC4Qs',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 48,
+    title: 'Carousel',
+    category: 'Fashion',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1789933723/Screenshot_2026-09-21_at_1.17.37_AM_fde1ow.png',
+    videoUrl: 'https://youtu.com/embed/w_EM4t-4Lhk',
     tools: ['Premiere Pro'],
   },
 
@@ -664,7 +693,7 @@ const getEmbedUrl = (url: string) => {
 };
 
 const PortfolioSection = () => {
-  const [activeCategory, setActiveCategory] = useState('3D Animation');
+  const [activeCategory, setActiveCategory] = useState('UGC');
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   const filteredProjects = projects.filter((p) => p.category === activeCategory);
