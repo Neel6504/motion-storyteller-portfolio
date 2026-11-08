@@ -7,7 +7,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useMagneticEffect } from '@/hooks/useMagneticEffect';
 import LiquidEther from './LiquidEther';
 
-const HeroSection = () => {
+const HeroSection = ({ isWarmTheme = false }: { isWarmTheme?: boolean }) => {
   const [isNameHovered, setIsNameHovered] = useState(false);
   const magneticRefWork = useMagneticEffect({ strength: 0.25, speed: 0.2 });
   const magneticRefContact = useMagneticEffect({ strength: 0.25, speed: 0.2 });
@@ -23,7 +23,7 @@ const HeroSection = () => {
   // Compute spotlight background unconditionally (hooks must not be conditional)
   const spotlightBg = useTransform(
     [smoothMouseX, smoothMouseY],
-    ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, rgba(82, 39, 255, 0.22), transparent 70%)`
+    ([x, y]) => `radial-gradient(250px circle at ${x}px ${y}px, ${isWarmTheme ? 'rgba(255, 174, 0, 0.24)' : 'rgba(82, 39, 255, 0.22)'}, transparent 70%)`
   );
 
   useEffect(() => {
@@ -66,7 +66,9 @@ const HeroSection = () => {
 
   const memoizedLiquidEther = useMemo(() => (
     <LiquidEther
-      colors={['#5227FF', '#FF9FFC', '#B497CF', '#5227FF']}
+      colors={isWarmTheme
+        ? ['#FFB000', '#F97316', '#FFD166', '#8B1E00']
+        : ['#5227FF', '#FF9FFC', '#B497CF', '#5227FF']}
       mouseForce={20}
       cursorSize={120}
       resolution={0.5}
@@ -78,7 +80,7 @@ const HeroSection = () => {
       takeoverDuration={0.3}
       style={{ width: '100%', height: '100%', opacity: 0.55 }}
     />
-  ), []);
+  ), [isWarmTheme]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero section">

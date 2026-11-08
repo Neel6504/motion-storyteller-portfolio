@@ -16,6 +16,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isWarmTheme, setIsWarmTheme] = useState(false);
 
   // Wait for all images to load before showing site
   const handleLoadingComplete = () => {
@@ -65,15 +66,19 @@ const App = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
+                className={isWarmTheme ? 'warm-theme' : ''}
                 style={{ minHeight: '100vh' }}
               >
-                <MouseSpotlight />
+                <MouseSpotlight isWarmTheme={isWarmTheme} />
                 <ClickSoundManager />
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
                   <Routes>
-                    <Route path="/" element={<Index />} />
+                    <Route
+                      path="/"
+                      element={<Index onWarmThemeChange={setIsWarmTheme} isWarmTheme={isWarmTheme} />}
+                    />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

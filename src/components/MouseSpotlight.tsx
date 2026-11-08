@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const MouseSpotlight = () => {
+const MouseSpotlight = ({ isWarmTheme = false }: { isWarmTheme?: boolean }) => {
   // Track mouse, spring for smoothness
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -10,7 +10,7 @@ const MouseSpotlight = () => {
 
   // Compute background unconditionally (avoid conditional hooks)
   const spotlightBg = useTransform([smoothX, smoothY], ([x, y]) =>
-    `radial-gradient(120px circle at ${x}px ${y}px, rgba(82, 39, 255, 0.18) 0%, transparent 80%)`
+    `radial-gradient(120px circle at ${x}px ${y}px, ${isWarmTheme ? 'rgba(255, 171, 0, 0.2)' : 'rgba(82, 39, 255, 0.18)'} 0%, transparent 80%)`
   );
 
   const [isMobile, setIsMobile] = useState(false);

@@ -10,16 +10,22 @@ import ResumeSection from '@/components/ResumeSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
-const Index = () => {
+const Index = ({
+  onWarmThemeChange,
+  isWarmTheme,
+}: {
+  onWarmThemeChange: (enabled: boolean) => void;
+  isWarmTheme: boolean;
+}) => {
   return (
     <div className="relative min-h-screen bg-background film-grain">
-      <ParticleBackground />
+      <ParticleBackground isWarmTheme={isWarmTheme} />
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection isWarmTheme={isWarmTheme} />
         <CompaniesMarquee />
         <InfluencersMarquee />
-        <PortfolioSection />
+        <PortfolioSection onWarmThemeChange={onWarmThemeChange} />
         <ToolsMarquee />
         <AboutSection />
         <ResumeSection />

@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, ExternalLink, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const categories = ['Motion Graphics',  'UGC', 'Wedding & events', 'Documentary', 'Logo Reveal', 'Promotional reels' , 'Fashion', 'Generative AI Video','Shortfilm', 'Big Celebs'];
+const categories = ['Motion Graphics',  'UGC', 'Wedding & events', 'Documentary', 'Logo Reveal', 'Promotional reels' , 'Fashion', 'Generative AI Video','Shortfilm', 'Big Celebs', 'Navratri Special 2k26', 'Cafe works', 'Jewellery'];
 
 const CategoryButton = ({ category, isActive, onClick }: { category: string; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -13,6 +13,8 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
   const mouseY = useMotionValue(0);
   
   const isShortfilm = category === 'Big Celebs';
+  const isNavratriSpecial = category === 'Navratri Special 2k26';
+  const isHighlighted = isShortfilm || isNavratriSpecial;
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { stiffness: 300, damping: 30 });
@@ -59,19 +61,19 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
         role="tab"
         aria-selected={isActive}
         animate={{
-          scale: isShortfilm 
+          scale: isHighlighted 
             ? [1, 1.08, 1, 1.08, 1]
             : isHovered ? 1.08 : 1,
           boxShadow: isHovered 
             ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 25px rgba(82, 39, 255, 0.35)'
             : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         }}
-        transition={isShortfilm 
+        transition={isHighlighted 
           ? { duration: 3, repeat: Infinity, ease: 'easeInOut' }
           : { type: 'spring', stiffness: 300, damping: 30 }
         }
         className={`relative text-xs md:text-sm px-4 py-2 font-medium rounded-md ${
-          isShortfilm ? 'overflow-visible' : 'overflow-hidden'
+          isHighlighted ? 'overflow-visible' : 'overflow-hidden'
         } ${
           isActive
             ? 'bg-primary text-primary-foreground'
@@ -106,8 +108,10 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
             x: parallaxLayer1X,
             y: parallaxLayer1Y,
           }}
-          animate={isShortfilm ? {
-            color: ['#ffffff', '#ff8c00', '#ffffff', '#ff8c00', '#ffffff'],
+          animate={isHighlighted ? {
+            color: isNavratriSpecial
+              ? ['#ffffff', '#ffb347', '#ffffff', '#ff69b4', '#ffffff']
+              : ['#ffffff', '#ff8c00', '#ffffff', '#ff8c00', '#ffffff'],
           } : category === 'Shortfilm' ? { color: '#ffffff' } : {}}
           transition={{
             duration: 3,
@@ -182,13 +186,17 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
         />
 
         {/* Orange heartbeat glow for Shortfilm */}
-        {isShortfilm && (
+        {isHighlighted && (
           <motion.div
             className="absolute inset-[-15px] pointer-events-none rounded-md"
             style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.12), rgba(255, 100, 0, 0.78), transparent 70%)',
+              background: isNavratriSpecial
+                ? 'radial-gradient(circle at 50% 50%, rgba(255, 179, 71, 0.16), rgba(255, 105, 180, 0.72), transparent 70%)'
+                : 'radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.12), rgba(255, 100, 0, 0.78), transparent 70%)',
               filter: 'blur(15px)',
-              boxShadow: '0 0 20px rgba(255, 140, 0, 0.25)',
+              boxShadow: isNavratriSpecial
+                ? '0 0 24px rgba(255, 105, 180, 0.3)'
+                : '0 0 20px rgba(255, 140, 0, 0.25)',
             }}
             animate={{
               scale: [1, 1.4, 1, 1.4, 1],
@@ -203,7 +211,7 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
         )}
 
         {/* Orange particles around Shortfilm */}
-        {isShortfilm && [...Array(16)].map((_, i) => {
+        {isHighlighted && [...Array(16)].map((_, i) => {
           const angle = (i * 22.5) * (Math.PI / 180);
           const distance = 40 + Math.random() * 30;
           const lifetime = 1.5 + Math.random() * 1;
@@ -217,8 +225,12 @@ const CategoryButton = ({ category, isActive, onClick }: { category: string; isA
                 height: 2 + Math.random() * 2,
                 left: '50%',
                 top: '50%',
-                background: 'radial-gradient(circle, rgba(255, 140, 0, 0.9), rgba(255, 100, 0, 0.5))',
-                boxShadow: '0 0 6px rgba(255, 140, 0, 0.7)',
+                background: isNavratriSpecial
+                  ? 'radial-gradient(circle, rgba(255, 179, 71, 0.95), rgba(255, 105, 180, 0.55))'
+                  : 'radial-gradient(circle, rgba(255, 140, 0, 0.9), rgba(255, 100, 0, 0.5))',
+                boxShadow: isNavratriSpecial
+                  ? '0 0 6px rgba(255, 105, 180, 0.75)'
+                  : '0 0 6px rgba(255, 140, 0, 0.7)',
               }}
               animate={{
                 x: [0, distance * Math.cos(angle)],
@@ -649,6 +661,69 @@ const projects = [
     tools: ['Premiere Pro'],
   },
 
+  {
+    id: 49,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125514/Screenshot_2026-11-08_at_1.41.44_PM_qkiznt.png',
+    videoUrl: 'https://youtube.com/embed/bqqjvj2jQuo',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 50,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125412/Screenshot_2026-11-08_at_1.37.48_PM_nza1vs.png',
+    videoUrl: 'https://youtube.com/embed/R5D56roky0I',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 51,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125561/Screenshot_2026-11-08_at_1.42.33_PM_igesss.png',
+    videoUrl: 'https://youtube.com/embed/Qz9JYY2VnpQ',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 52,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125626/Screenshot_2026-11-08_at_1.43.22_PM_woiiwf.png',
+    videoUrl: 'https://youtube.com/embed/nW_m6uIw-ns',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 53,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125680/Screenshot_2026-11-08_at_1.44.30_PM_ftfbad.png',
+    videoUrl: 'https://youtube.com/embed/GAc6UwHejJo',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 54,
+    title: 'Rishikesh Gadhvi',
+    category: 'Navratri Special 2k26',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794125731/Screenshot_2026-11-08_at_1.45.19_PM_pqbh7d.png',
+    videoUrl: 'https://youtube.com/embed/Wave2-gvyDA',
+    tools: ['Premiere Pro'],
+  },
+
+  {
+    id: 55,
+      title: 'Ishani Dave x DAIICT',
+      category: 'Big Celebs',
+    thumbnail: 'https://res.cloudinary.com/dlwztbh9v/image/upload/v1794126517/Screenshot_2026-11-08_at_1.58.19_PM_n5q23i.png',
+    videoUrl: 'https://youtube.com/embed/lv5poJb_Agk',
+    tools: ['Premiere Pro'],
+  },
+
 
 ];
 
@@ -692,7 +767,7 @@ const getEmbedUrl = (url: string) => {
   return url;
 };
 
-const PortfolioSection = () => {
+const PortfolioSection = ({ onWarmThemeChange }: { onWarmThemeChange: (enabled: boolean) => void }) => {
   const [activeCategory, setActiveCategory] = useState('UGC');
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
@@ -733,7 +808,10 @@ const PortfolioSection = () => {
               key={category}
               category={category}
               isActive={activeCategory === category}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => {
+                setActiveCategory(category);
+                onWarmThemeChange(category === 'Big Celebs' || category === 'Navratri Special 2k26');
+              }}
             />
           ))}
         </motion.div>

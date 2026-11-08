@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const ParticleBackground = () => {
+const ParticleBackground = ({ isWarmTheme = false }: { isWarmTheme?: boolean }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -59,7 +59,7 @@ const ParticleBackground = () => {
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 3 + 1,
         opacity: Math.random() * 0.4 + 0.2,
-        hue: 250 + Math.random() * 50,
+        hue: isWarmTheme ? 28 + Math.random() * 30 : 250 + Math.random() * 50,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.02,
       });
@@ -138,7 +138,7 @@ const ParticleBackground = () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('resize', updateFlags);
     };
-  }, [reducedMotion]);
+  }, [isWarmTheme, reducedMotion]);
 
   return (
     isMobile || reducedMotion ? null : (
