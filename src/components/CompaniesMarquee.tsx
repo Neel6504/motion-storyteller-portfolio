@@ -15,9 +15,10 @@ const companies = [
   'GIPMC',
   'Fancall',
   'Oviyana Jewels',
-  'Desaii Advertising',
+  'Desaii Global Group',
   'Studio White',
-  'Hindusstan talks'
+  'Hindusstan talks',
+  'Sarthi Media'
 ];
 
 const CompanyCard = ({ name }: { name: string }) => {

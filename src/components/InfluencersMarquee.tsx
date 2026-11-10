@@ -104,6 +104,15 @@ const influencers: Influencer[] = [
     profession: "Fashion Influencer",
     niche: "Fashion & Influencer",
     quote: "Glamorous video edits designed for luxury brand collaborations and launches."
+  },
+  {
+    name: "Rishikesh Gadhvi",
+    handle: "@rishikeshgadhvi",
+    followers: "59K+",
+    views: "67k+",
+    profession: "Folk Singer & Creator",
+    niche: "Folk Music & Content Creation",
+    quote: "Gujarati garba and a traditional touch in reels with a modern twist, capturing audience attention."
   }
 ];
 

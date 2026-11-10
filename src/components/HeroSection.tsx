@@ -229,9 +229,9 @@ const HeroSection = ({ isWarmTheme = false }: { isWarmTheme?: boolean }) => {
               className="flex items-center justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-border/50"
             >
               {[
-                { value: '700+', label: 'Reels and YT videos Delivered' },
+                { value: '1000+', label: 'Reels and YT videos Delivered' },
                 { value: '3+', label: 'Years' },
-                { value: '40+', label: 'Clients' },
+                { value: '45+', label: 'Clients' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="font-display text-2xl md:text-3xl font-bold text-foreground">
